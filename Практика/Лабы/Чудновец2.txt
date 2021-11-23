@@ -1,0 +1,327 @@
+CREATE database stores
+---
+CREATE TABLE CHUDNOVETS_CUSTOMER (
+    CUSTOMER_NUM  INTEGER,
+    FNAME         CHAR(15),
+    LNAME         CHAR(15),
+    COMPANY       CHAR(20),
+    ADDRESS1      CHAR(20),
+    ADDRESS2      CHAR(20),
+    CITY          CHAR(15),
+    STATE         CHAR(2),
+    ZIPCODE       CHAR(5),
+    PHONE         CHAR(18)
+);
+
+CREATE TABLE CHUDNOVETS_ORDERS (
+    ORDER_NUM      INTEGER NOT NULL,
+    ORDER_DATE     DATE,
+    CUSTOMER_NUM   INTEGER NOT NULL,
+    SHIP_INSTRUCT  CHAR(40),
+    BACKLOG        CHAR(1),
+    PO_NUM         CHAR(10),
+    SHIP_DATE      DATE,
+    SHIP_WEIGHT    DECIMAL(8,2),
+    SHIP_CHARGE    DECIMAL(8,2),
+    PAID_DATE      DATE
+);
+
+CREATE TABLE CHUDNOVETS_ITEMS (
+    ITEM_NUM     SMALLINT NOT NULL,
+    ORDER_NUM    INTEGER NOT NULL,
+    STOCK_NUM    SMALLINT NOT NULL,
+    MANU_CODE    CHAR(3) NOT NULL,
+    QUANTITY     SMALLINT,
+    TOTAL_PRICE  DECIMAL(8,2)
+);
+
+CREATE TABLE CHUDNOVETS_STOCK (
+    STOCK_NUM    SMALLINT NOT NULL,
+    MANU_CODE    CHAR(3) NOT NULL,
+    DESCRIPTION  CHAR(15),
+    UNIT_PRICE   DECIMAL(8,2),
+    UNIT         CHAR(4),
+    UNIT_DESCR   CHAR(15)
+);
+
+CREATE TABLE CHUDNOVETS_MANUFACT (
+    MANU_CODE  CHAR(3) NOT NULL,
+    MANU_NAME  CHAR(15),
+    LEAD_TIME  INTEGER
+);
+
+CREATE TABLE CHUDNOVETS_STATE (
+    CODE   CHAR(2) NOT NULL,
+    SNAME  CHAR(15)
+);
+
+INSERT INTO chudnovets_customer 
+SELECT * FROM customer
+
+INSERT INTO CHUDNOVETS_ORDERS 
+SELECT * FROM ORDERS 
+
+INSERT INTO CHUDNOVETS_ITEMS 
+SELECT * FROM ITEMS
+
+INSERT INTO CHUDNOVETS_STOCK 
+SELECT * FROM STOCK
+
+INSERT INTO CHUDNOVETS_MANUFACT 
+SELECT * FROM MANUFACT
+
+INSERT INTO CHUDNOVETS_STATE 
+SELECT * FROM STATE
+
+
+
+CREATE VIEW CHUDNOVETS_VIEW_CUSTOMER
+AS
+SELECT *
+FROM CHUDNOVETS_CUSTOMER 
+WHERE STATE = 'AZ'
+
+èëè
+
+CREATE VIEW CHUDNOVETS_VIEW_CUSTOMER(
+    CUSTOMER_NUM,
+    FNAME,
+    LNAME,
+    COMPANY,
+    ADDRESS1,
+    ADDRESS2,
+    CITY,
+    STATE,
+    ZIPCODE,
+    PHONE)
+AS
+SELECT *
+FROM CHUDNOVETS_CUSTOMER 
+WHERE STATE = 'AZ'
+
+CREATE VIEW CHUDNOVETS_VIEW_ITEMS
+AS SELECT * 
+FROM CHUDNOVETS_ITEMS 
+WHERE total_price > 500
+
+èëè
+
+CREATE VIEW CHUDNOVETS_VIEW_ITEMS(
+    ITEM_NUM,
+    ORDER_NUM,
+    STOCK_NUM,
+    MANU_CODE,
+    QUANTITY,
+    TOTAL_PRICE)
+AS
+SELECT * 
+FROM CHUDNOVETS_ITEMS 
+WHERE total_price > 500
+
+
+
+Ñèíîíèìû - íå íóæíî
+
+
+
+ALTER TABLE CHUDNOVETS_CUSTOMER ADD cust_date DATE
+//http://docwiki.embarcadero.com/InterBase/2020/en/Using_ALTER_TABLE
+
+ALTER TABLE CHUDNOVETS_ORDERS DROP backlog
+
+
+
+Ïåðåèìåíîâàíèå òàáëèöû - õç
+
+
+
+ALTER TABLE CHUDNOVETS_STATE ALTER COLUMN code TO state_code
+
+ALTER TABLE CHUDNOVETS_STATE ALTER COLUMN sname TO state_name
+
+
+
+ALTER TABLE CHUDNOVETS_MANUFACT ALTER COLUMN manu_name TYPE CHAR(80)
+
+ALTER TABLE CHUDNOVETS_MANUFACT ALTER COLUMN manu_code TYPE VARCHAR(20)
+
+
+
+CREATE INDEX customer_index ON CHUDNOVETS_CUSTOMER (customer_num)
+
+CREATE INDEX customer_composite_index ON CHUDNOVETS_CUSTOMER (fname, lname)
+---
+1)
+SELECT ORDER_NUM, ORDER_DATE, CUSTOMER_NUM, SHIP_DATE 
+FROM CHUDNOVETS_ORDERS
+WHERE PAID_DATE IS NULL
+AND SHIP_DATE BETWEEN '01/01/1994' AND '09/30/1994'
+
+//MYSQL:
+SELECT ORDER_NUM, ORDER_DATE, CUSTOMER_NUM, SHIP_DATE  FROM CHUDNOVETS_ORDERS WHERE PAID_DATE IS NULL AND SHIP_DATE BETWEEN '1994-01-01' AND '1994-09-30';
+2)
+SELECT customer_num, company FROM CHUDNOVETS_CUSTOMER WHERE company LIKE '%town%';
+3)
+SELECT company, city, state, zipcode FROM CHUDNOVETS_CUSTOMER WHERE company LIKE '%Sports%' AND (state IN ('CA', 'FL'));
+4)
+SELECT MAX(ship_charge), MIN(ship_charge), AVG(ship_charge) FROM CHUDNOVETS_ORDERS;
+5)
+//SQL: ОТСЧЁТ с воскресенья!
+SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+WHERE EXTRACT(WEEKDAY FROM order_date) IN (1, 5)
+AND
+EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM ship_date);
+
+//MYSQL: ОТСЧЁТ с понедельника!
+SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+WHERE WEEKDAY(order_date) IN (0, 4)
+AND
+EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM ship_date);
+6)
+SELECT customer_num, SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num ORDER BY SUM(ship_charge) DESC;
+7)
+SELECT customer_num, SUM(ship_weight) FROM CHUDNOVETS_ORDERS GROUP by customer_num HAVING SUM(ship_weight) > 30 ORDER BY SUM(ship_weight) DESC;
+À êàê ïñåâäîíèì? AS sum_ship_weight https://oracleplsql.ru/sum-function.html
+8)
+SELECT * FROM CHUDNOVETS_CUSTOMER WHERE state='CA' ORDER BY company;
+9)
+SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+WHERE c.customer_num = o.customer_num ORDER BY order_num;
+
+//Или
+SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c INNER JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num ORDER BY o.order_num;
+10)
+//Неверная сшивка без manu_code
+SELECT CHUDNOVETS_ITEMS.order_num, CHUDNOVETS_ITEMS.item_num, CHUDNOVETS_STOCK.description, CHUDNOVETS_STOCK.manu_code, CHUDNOVETS_ITEMS.total_price 
+FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK
+WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.order_num=1004;
+
+//С учётом manu_code
+SELECT order_num, item_num, description, CHUDNOVETS_STOCK.manu_code, total_price 
+FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK
+WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_STOCK.manu_code
+AND order_num=1004;
+
+//По именам столбцов
+SELECT order_num, item_num, description, CHUDNOVETS_STOCK.manu_code, total_price 
+FROM CHUDNOVETS_ITEMS NATURAL JOIN CHUDNOVETS_STOCK
+WHERE order_num=1004;
+11)
+SELECT order_num, item_num, description, manu_name, total_price 
+FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK, CHUDNOVETS_MANUFACT
+WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_STOCK.manu_code AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_MANUFACT.manu_code
+AND CHUDNOVETS_ITEMS.order_num=1004;
+12)
+INSERT INTO CHUDNOVETS_STOCK (stock_num, manu_code, description, unit_price) VALUES (11, 'SMT', 'ski goggles', 10.0)
+https://ru.wikipedia.org/wiki/Insert_%28SQL%29
+13)
+ALTER TABLE CHUDNOVETS_STOCK ALTER COLUMN unit_descr TYPE CHAR(80);
+//MYSQL: ALTER TABLE CHUDNOVETS_STOCK CHANGE COLUMN unit_descr unit_descr CHAR(80);
+
+UPDATE CHUDNOVETS_STOCK
+SET unit_price = 85.0,
+unit = 'case',
+unit_descr = '10 goggless/case'
+WHERE stock_num = 11 AND manu_code = 'SMT';
+
+SELECT * FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
+14)
+DELETE FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
+15)
+//Èíòåðåñíî
+SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS
+WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code  
+ORDER BY CHUDNOVETS_MANUFACT.manu_code;
+
+//Верный запрос (но не полный)
+SELECT manu_code, SUM(total_price) FROM CHUDNOVETS_ITEMS
+GROUP BY manu_code;
+
+//Need to - https://www.sql.ru/docs/sql/u_sql/ch6.shtml
+
+!!!WHERE & GROUP BY îáÿçàòåëüíî âñå ñîâïàäàþùèå ïîëÿ
+SELECT m.manu_code,m.manu_name, SUM(i.total_price) FROM CHUDNOVETS_MANUFACT m, CHUDNOVETS_ITEMS i
+WHERE m.manu_code=i.manu_code  
+GROUP BY m.manu_code, m.manu_name
+ORDER BY m.manu_code;
+
+//Не моё
+SELECT m.manu_code, m.manu_name, SUM(i.total_price)
+FROM CHUDNOVETS_MANUFACT m JOIN CHUDNOVETS_ITEMS i
+ON m.manu_code = i.manu_code
+GROUP BY m.manu_code, m.manu_name
+ORDER BY m.manu_code;
+
+//Моё
+SELECT manu_code, manu_name, sum_total_price 
+FROM CHUDNOVETS_MANUFACT NATURAL JOIN 
+(SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s 
+ORDER BY manu_code;
+16)
+SELECT s.description, s.manu_code, c.manu_code
+FROM CHUDNOVETS_STOCK s, CHUDNOVETS_STOCK c
+WHERE s.stock_num=c.stock_num;
+
+SELECT * FROM CHUDNOVETS_STOCK;
+17)
+
+SELECT o.customer_num, c.fname, c.lname 
+FROM CHUDNOVETS_CUSTOMER c INNER JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num
+GROUP BY o.customer_num, c.fname, c.lname
+HAVING COUNT(o.order_num) > 1;
+
+SELECT fname, lname, c.customer_num, COUNT(*) 
+FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+WHERE c.customer_num = o.customer_num
+GROUP BY c.customer_num, fname, lname
+HAVING COUNT(*) > 1;
+
+SELECT * FROM CHUDNOVETS_CUSTOMER;
+
+SELECT * FROM CHUDNOVETS_ORDERS ORDER BY CUSTOMER_NUM;
+18)
+SELECT customer_num, order_num, order_date
+FROM CHUDNOVETS_ORDERS o
+WHERE NOT EXISTS 
+(SELECT * FROM CHUDNOVETS_ITEMS i, CHUDNOVETS_STOCK s
+WHERE o.order_num = i.order_num AND 
+i.stock_num = s.stock_num AND i.manu_code = s.manu_code AND
+s.description LIKE '%baseball gloves%')
+ORDER BY order_num;
+
+//Не моё | Question?
+SELECT DISTINCT o.customer_num, o.order_num, o.order_date FROM CHUDNOVETS_ORDERS o
+INNER JOIN CHUDNOVETS_ITEMS i
+ON o.order_num = i.order_num
+WHERE NOT EXISTS (
+SELECT 1 FROM CHUDNOVETS_STOCK s
+WHERE s.stock_num = i.stock_num AND s.manu_code = i.manu_code
+AND
+s.description LIKE '%baseball gloves%'
+)
+ORDER BY o.order_num;
+19)
+SELECT AVG(total_price) FROM CHUDNOVETS_ITEMS;
+
+SELECT order_num, SUM(total_price) 
+FROM CHUDNOVETS_ITEMS 
+GROUP BY order_num 
+HAVING SUM(total_price) < (SELECT AVG(total_price) FROM CHUDNOVETS_ITEMS);
+
+//Не мой
+SELECT order_num, total_price FROM CHUDNOVETS_ITEMS
+GROUP BY order_num, total_price
+HAVING total_price < ALL(SELECT AVG(total_price) FROM CHUDNOVETS_ITEMS);
+20)
+SELECT * FROM CHUDNOVETS_STOCK WHERE manu_code = "HRO" OR stock_num = 1;
+
+SELECT * FROM CHUDNOVETS_STOCK WHERE manu_code = "HRO"
+UNION
+SELECT * FROM CHUDNOVETS_STOCK WHERE stock_num = 1;
+21)
+SELECT * FROM CHUDNOVETS_CUSTOMER ORDER BY city;
+
+SELECT 'A' Sortkey, city, company FROM CHUDNOVETS_CUSTOMER WHERE city = 'Redwood City'
+UNION
+SELECT 'B' Sortkey, city, company FROM CHUDNOVETS_CUSTOMER WHERE city != 'Redwood City'
+ORDER BY Sortkey, company;

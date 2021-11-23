@@ -1,0 +1,23 @@
+21.02.21:
+
+УСТАНОВКА MYSQL В UBUNTU 20.04: - https://losst.ru/ustanovka-mysql-ubuntu-16-04
+	Установка MySQL 8 в Ubuntu
+	Настройка mysql в Ubuntu
+	Выводы
+СОЗДАНИЕ ПОЛЬЗОВАТЕЛЯ MYSQL: - https://losst.ru/sozdanie-polzovatelya-mysql
+	Как создать пользователя MySQL
+	Права пользователя MySQL
+---
+CREATE DATABASE
+CREATE USER - https://oracleplsql.ru/create-user-mysql.html
+GRANT/REVOKE привилегии MySQL - https://oracleplsql.ru/grant-revoke-privileges-mysql.html
+SHOW GRANTS
+FLUSH PRIVILEGES
+DESCRIBE - http://www.softtime.ru/bookphp/gl12_9.php
+---
+sudo systemctl status mysql - проверить, запущенна ли служба MySQL
+	sudo systemctl enable/disable mysql - включить/отключить службу MySQL при загрузке https://askubuntu.ru/questions/134541/kak-zapustit-sluzhbu-myz-ql-avtomaticheski-kak-pol-zovatel-root
+
+sudo mysql -u root -p - подключение к серверу БД
+66#r#0cZqe
+

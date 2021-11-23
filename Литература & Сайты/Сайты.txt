@@ -1,0 +1,3 @@
+https://oracleplsql.ru/mysql-manual.html
+https://oracleplsql.ru/sql-language.html
+

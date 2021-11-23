@@ -1,0 +1,1207 @@
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ sudo apt update
+[sudo] пароль для ivan: 
+Сущ:1 http://mirror.corbina.net/ubuntu focal InRelease
+Сущ:2 http://mirror.corbina.net/ubuntu focal-updates InRelease                 
+Сущ:3 http://mirror.corbina.net/ubuntu focal-backports InRelease               
+Сущ:4 http://mirror.corbina.net/ubuntu focal-security InRelease                
+Сущ:5 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Сущ:6 http://repo.yandex.ru/yandex-browser/deb beta InRelease                  
+Чтение списков пакетов… Готово            
+Построение дерева зависимостей       
+Чтение информации о состоянии… Готово
+Может быть обновлено 16 пакетов. Запустите «apt list --upgradable» для их показа.
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ sudo apt install mysql-server mysql-client
+Чтение списков пакетов… Готово
+Построение дерева зависимостей       
+Чтение информации о состоянии… Готово
+Следующие пакеты устанавливались автоматически и больше не требуются:
+  libestr0 libfastjson4 libfprint-2-tod1 libllvm10 libllvm9
+Для их удаления используйте «sudo apt autoremove».
+Будут установлены следующие дополнительные пакеты:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-template-perl libmecab2
+  mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client-8.0
+  mysql-client-core-8.0 mysql-server-8.0 mysql-server-core-8.0
+Предлагаемые пакеты:
+  libipc-sharedcache-perl mailx tinyca
+Следующие НОВЫЕ пакеты будут установлены:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-template-perl libmecab2
+  mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client mysql-client-8.0
+  mysql-client-core-8.0 mysql-server mysql-server-8.0 mysql-server-core-8.0
+Обновлено 0 пакетов, установлено 17 новых пакетов, для удаления отмечено 0 пакетов, и 16 пакетов не обновлено.
+Необходимо скачать 30,6 MB архивов.
+После данной операции объём занятого дискового пространства возрастёт на 249 MB.
+Хотите продолжить? [Д/н] д
+Пол:1 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-client-core-8.0 amd64 8.0.23-0ubuntu0.20.04.1 [4 215 kB]
+Пол:2 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-client-8.0 amd64 8.0.23-0ubuntu0.20.04.1 [22,0 kB]
+Пол:3 http://mirror.corbina.net/ubuntu focal/main amd64 libaio1 amd64 0.3.112-5 [7 184 B]
+Пол:4 http://mirror.corbina.net/ubuntu focal/main amd64 libevent-core-2.1-7 amd64 2.1.11-stable-1 [89,1 kB]
+Пол:5 http://mirror.corbina.net/ubuntu focal/main amd64 libevent-pthreads-2.1-7 amd64 2.1.11-stable-1 [7 372 B]
+Пол:6 http://mirror.corbina.net/ubuntu focal/main amd64 libmecab2 amd64 0.996-10build1 [233 kB]
+Пол:7 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-server-core-8.0 amd64 8.0.23-0ubuntu0.20.04.1 [17,7 MB]
+Пол:8 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-server-8.0 amd64 8.0.23-0ubuntu0.20.04.1 [1 275 kB]
+Пол:9 http://mirror.corbina.net/ubuntu focal/main amd64 libcgi-pm-perl all 4.46-1 [186 kB]
+Пол:10 http://mirror.corbina.net/ubuntu focal/main amd64 libfcgi-perl amd64 0.79-1 [33,1 kB]
+Пол:11 http://mirror.corbina.net/ubuntu focal/main amd64 libcgi-fast-perl all 1:2.15-1 [10,5 kB]
+Пол:12 http://mirror.corbina.net/ubuntu focal/main amd64 libhtml-template-perl all 2.97-1 [59,0 kB]
+Пол:13 http://mirror.corbina.net/ubuntu focal/main amd64 mecab-utils amd64 0.996-10build1 [4 912 B]
+Пол:14 http://mirror.corbina.net/ubuntu focal/main amd64 mecab-ipadic all 2.7.0-20070801+main-2.1 [6 714 kB]
+Пол:15 http://mirror.corbina.net/ubuntu focal/main amd64 mecab-ipadic-utf8 all 2.7.0-20070801+main-2.1 [4 380 B]
+Пол:16 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-client all 8.0.23-0ubuntu0.20.04.1 [9 420 B]
+Пол:17 http://mirror.corbina.net/ubuntu focal-updates/main amd64 mysql-server all 8.0.23-0ubuntu0.20.04.1 [9 548 B]
+Получено 30,6 MB за 4с (7 065 kB/s)          
+Предварительная настройка пакетов …
+Выбор ранее не выбранного пакета mysql-client-core-8.0.
+(Чтение базы данных … на данный момент установлено 263878 файлов и каталогов.)
+Подготовка к распаковке …/00-mysql-client-core-8.0_8.0.23-0ubuntu0.20.04.1_amd64
+.deb …
+Распаковывается mysql-client-core-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Выбор ранее не выбранного пакета mysql-client-8.0.
+Подготовка к распаковке …/01-mysql-client-8.0_8.0.23-0ubuntu0.20.04.1_amd64.deb 
+…
+Распаковывается mysql-client-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Выбор ранее не выбранного пакета libaio1:amd64.
+Подготовка к распаковке …/02-libaio1_0.3.112-5_amd64.deb …
+Распаковывается libaio1:amd64 (0.3.112-5) …
+Выбор ранее не выбранного пакета libevent-core-2.1-7:amd64.
+Подготовка к распаковке …/03-libevent-core-2.1-7_2.1.11-stable-1_amd64.deb …
+Распаковывается libevent-core-2.1-7:amd64 (2.1.11-stable-1) …
+Выбор ранее не выбранного пакета libevent-pthreads-2.1-7:amd64.
+Подготовка к распаковке …/04-libevent-pthreads-2.1-7_2.1.11-stable-1_amd64.deb …
+Распаковывается libevent-pthreads-2.1-7:amd64 (2.1.11-stable-1) …
+Выбор ранее не выбранного пакета libmecab2:amd64.
+Подготовка к распаковке …/05-libmecab2_0.996-10build1_amd64.deb …
+Распаковывается libmecab2:amd64 (0.996-10build1) …
+Выбор ранее не выбранного пакета mysql-server-core-8.0.
+Подготовка к распаковке …/06-mysql-server-core-8.0_8.0.23-0ubuntu0.20.04.1_amd64
+.deb …
+Распаковывается mysql-server-core-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Выбор ранее не выбранного пакета mysql-server-8.0.
+Подготовка к распаковке …/07-mysql-server-8.0_8.0.23-0ubuntu0.20.04.1_amd64.deb 
+…
+Распаковывается mysql-server-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Выбор ранее не выбранного пакета libcgi-pm-perl.
+Подготовка к распаковке …/08-libcgi-pm-perl_4.46-1_all.deb …
+Распаковывается libcgi-pm-perl (4.46-1) …
+Выбор ранее не выбранного пакета libfcgi-perl.
+Подготовка к распаковке …/09-libfcgi-perl_0.79-1_amd64.deb …
+Распаковывается libfcgi-perl (0.79-1) …
+Выбор ранее не выбранного пакета libcgi-fast-perl.
+Подготовка к распаковке …/10-libcgi-fast-perl_1%3a2.15-1_all.deb …
+Распаковывается libcgi-fast-perl (1:2.15-1) …
+Выбор ранее не выбранного пакета libhtml-template-perl.
+Подготовка к распаковке …/11-libhtml-template-perl_2.97-1_all.deb …
+Распаковывается libhtml-template-perl (2.97-1) …
+Выбор ранее не выбранного пакета mecab-utils.
+Подготовка к распаковке …/12-mecab-utils_0.996-10build1_amd64.deb …
+Распаковывается mecab-utils (0.996-10build1) …
+Выбор ранее не выбранного пакета mecab-ipadic.
+Подготовка к распаковке …/13-mecab-ipadic_2.7.0-20070801+main-2.1_all.deb …
+Распаковывается mecab-ipadic (2.7.0-20070801+main-2.1) …
+Выбор ранее не выбранного пакета mecab-ipadic-utf8.
+Подготовка к распаковке …/14-mecab-ipadic-utf8_2.7.0-20070801+main-2.1_all.deb …
+Распаковывается mecab-ipadic-utf8 (2.7.0-20070801+main-2.1) …
+Выбор ранее не выбранного пакета mysql-client.
+Подготовка к распаковке …/15-mysql-client_8.0.23-0ubuntu0.20.04.1_all.deb …
+Распаковывается mysql-client (8.0.23-0ubuntu0.20.04.1) …
+Выбор ранее не выбранного пакета mysql-server.
+Подготовка к распаковке …/16-mysql-server_8.0.23-0ubuntu0.20.04.1_all.deb …
+Распаковывается mysql-server (8.0.23-0ubuntu0.20.04.1) …
+Настраивается пакет libmecab2:amd64 (0.996-10build1) …
+Настраивается пакет mysql-client-core-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Настраивается пакет libcgi-pm-perl (4.46-1) …
+Настраивается пакет libhtml-template-perl (2.97-1) …
+Настраивается пакет mecab-utils (0.996-10build1) …
+Настраивается пакет libevent-core-2.1-7:amd64 (2.1.11-stable-1) …
+Настраивается пакет mysql-client-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Настраивается пакет libfcgi-perl (0.79-1) …
+Настраивается пакет libaio1:amd64 (0.3.112-5) …
+Настраивается пакет libevent-pthreads-2.1-7:amd64 (2.1.11-stable-1) …
+Настраивается пакет mysql-client (8.0.23-0ubuntu0.20.04.1) …
+Настраивается пакет mecab-ipadic (2.7.0-20070801+main-2.1) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic для предоставления /
+var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет libcgi-fast-perl (1:2.15-1) …
+Настраивается пакет mysql-server-core-8.0 (8.0.23-0ubuntu0.20.04.1) …
+Настраивается пакет mecab-ipadic-utf8 (2.7.0-20070801+main-2.1) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic-utf8 для предоставле
+ния /var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет mysql-server-8.0 (8.0.23-0ubuntu0.20.04.1) …
+update-alternatives: используется /etc/mysql/mysql.cnf для предоставления /etc/m
+ysql/my.cnf (my.cnf) в автоматическом режиме
+Renaming removed key_buffer and myisam-recover options (if present)
+mysqld will log errors to /var/log/mysql/error.log
+mysqld is running as pid 36091
+Created symlink /etc/systemd/system/multi-user.target.wants/mysql.service → /lib
+/systemd/system/mysql.service.
+Настраивается пакет mysql-server (8.0.23-0ubuntu0.20.04.1) …
+Обрабатываются триггеры для systemd (245.4-4ubuntu3.4) …
+Обрабатываются триггеры для man-db (2.9.1-1) …
+Обрабатываются триггеры для libc-bin (2.31-0ubuntu9.2) …
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ mysql -V
+mysql  Ver 8.0.23-0ubuntu0.20.04.1 for Linux on x86_64 ((Ubuntu))
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$  sudo systemctl status mysql
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset:>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: >
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: e>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: en>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: ena>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enab>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabl>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enable>
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-12/12 (END)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2021-02-21 14:26:43 MSK; 1min 13s ago
+   Main PID: 36296 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 9254)
+     Memory: 333.1M
+     CGroup: /system.slice/mysql.service
+             └─36296 /usr/sbin/mysqld
+
+фев 21 14:26:42 Ivan-PC systemd[1]: Starting MySQL Community Server...
+фев 21 14:26:43 Ivan-PC systemd[1]: Started MySQL Community Server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ sudo mysql_secure_installation
+
+Securing the MySQL server deployment.
+
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD COMPONENT can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y|Y for Yes, any other key for No: Y
+
+There are three levels of password validation policy:
+
+LOW    Length >= 8
+MEDIUM Length >= 8, numeric, mixed case, and special characters
+STRONG Length >= 8, numeric, mixed case, special characters and dictionary                  file
+
+Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0
+Please set the password for root here.
+
+New password: 
+
+Re-enter new password: 
+
+Estimated strength of the password: 0 
+Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+All done! 
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql | grep "-u"
+Использование: grep [ПАРАМЕТР]… ШАБЛОНЫ [ФАЙЛ]…
+Запустите «grep --help» для получения более подробного описания.
+tbl:<standard input>:3110: bad repeated character
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql | grep -e "-u"
+tbl:<standard input>:3110: bad repeated character
+           shell> mysql --user=user_name --password db_name
+troff: <standard input>:3050: can't delimit name with a newline
+troff: <standard input>:3060: cannot use newline as a starting delimiter
+troff: <standard input>:3070: cannot use newline as a starting delimiter
+troff: <standard input>:3075: cannot use newline as a starting delimiter
+troff: <standard input>:3080: a newline character is not allowed in an escape name
+troff: <standard input>:3085: a newline character is not allowed in an escape name
+troff: <standard input>:3090: a newline character is not allowed in an escape name
+troff: <standard input>:3090: expecting an argument to escape \O
+troff: <standard input>:3120: cannot use newline as a starting delimiter
+troff: <standard input>:3125: cannot use newline as a starting delimiter
+troff: <standard input>:3148: cannot use newline as a starting delimiter
+troff: <standard input>:3158: a newline character is not allowed in an escape name
+           --safe-updates. (Default value is 1,000,000.)
+       •   --safe-updates, --i-am-a-dummy, -U If this option is enabled, UPDATE and DELETE
+           option file, you can use --skip-safe-updates on the command line to override it.
+           --safe-updates. (Default value is 1,000.)
+       •   --unbuffered, -n Flush the buffer after each query.
+       •   --user=user_name, -u user_name The user name of the MySQL account to use for
+               shell> mysql --xml -uroot -e "SHOW VARIABLES LIKE 'version%'"
+           you are running with --safe-updates enabled, status also prints the values for the
+           The MySQL user name (specified with the --user option) or -- if the user is
+       •   Using Safe-Updates Mode (--safe-updates)
+       Using Safe-Updates Mode (--safe-updates)
+       For beginners, a useful startup option is --safe-updates (or --i-am-a-dummy, which has
+       the same effect). Safe-updates mode is helpful for cases when you might have issued an
+       --safe-updates, you can modify rows only by specifying the key values that identify
+       them, or a LIMIT clause, or both. This helps prevent accidents. Safe-updates mode also
+       The --safe-updates option causes mysql to execute the following statement when it
+           mysql --safe-updates --select-limit=500 --max-join-size=10000
+       It is possible for UPDATE and DELETE statements to produce an error in safe-updates
+           the index. If safe-updates mode is enabled, an error occurs.
+       As of MySQL 8.0.13, safe-updates mode also includes these behaviors:
+       •   EXPLAIN with UPDATE and DELETE statements does not produce safe-updates errors.
+       •   When a safe-updates error occurs, the error message includes the first diagnostic
+           https://dev.mysql.com/doc/c-api/8.0/en/mysql-change-user.html
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql | grep -e "-u "
+tbl:<standard input>:3110: bad repeated character
+troff: <standard input>:3050: can't delimit name with a newline
+troff: <standard input>:3060: cannot use newline as a starting delimiter
+troff: <standard input>:3070: cannot use newline as a starting delimiter
+troff: <standard input>:3075: cannot use newline as a starting delimiter
+troff: <standard input>:3080: a newline character is not allowed in an escape name
+troff: <standard input>:3085: a newline character is not allowed in an escape name
+troff: <standard input>:3090: a newline character is not allowed in an escape name
+troff: <standard input>:3090: expecting an argument to escape \O
+troff: <standard input>:3120: cannot use newline as a starting delimiter
+troff: <standard input>:3125: cannot use newline as a starting delimiter
+troff: <standard input>:3148: cannot use newline as a starting delimiter
+troff: <standard input>:3158: a newline character is not allowed in an escape name
+       •   --user=user_name, -u user_name The user name of the MySQL account to use for
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql | grep -e "--user=user_name"
+tbl:<standard input>:3110: bad repeated character
+           shell> mysql --user=user_name --password db_name
+troff: <standard input>:3050: can't delimit name with a newline
+troff: <standard input>:3060: cannot use newline as a starting delimiter
+troff: <standard input>:3070: cannot use newline as a starting delimiter
+troff: <standard input>:3075: cannot use newline as a starting delimiter
+troff: <standard input>:3080: a newline character is not allowed in an escape name
+troff: <standard input>:3085: a newline character is not allowed in an escape name
+troff: <standard input>:3090: a newline character is not allowed in an escape name
+troff: <standard input>:3090: expecting an argument to escape \O
+troff: <standard input>:3120: cannot use newline as a starting delimiter
+troff: <standard input>:3125: cannot use newline as a starting delimiter
+troff: <standard input>:3148: cannot use newline as a starting delimiter
+troff: <standard input>:3158: a newline character is not allowed in an escape name
+       •   --user=user_name, -u user_name The user name of the MySQL account to use for
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql | grep -e "--user=user_name"
+tbl:<standard input>:3110: bad repeated character
+           shell> mysql --user=user_name --password db_name
+troff: <standard input>:3050: can't delimit name with a newline
+troff: <standard input>:3060: cannot use newline as a starting delimiter
+troff: <standard input>:3070: cannot use newline as a starting delimiter
+troff: <standard input>:3075: cannot use newline as a starting delimiter
+troff: <standard input>:3080: a newline character is not allowed in an escape name
+troff: <standard input>:3085: a newline character is not allowed in an escape name
+troff: <standard input>:3090: a newline character is not allowed in an escape name
+troff: <standard input>:3090: expecting an argument to escape \O
+troff: <standard input>:3120: cannot use newline as a starting delimiter
+troff: <standard input>:3125: cannot use newline as a starting delimiter
+troff: <standard input>:3148: cannot use newline as a starting delimiter
+troff: <standard input>:3158: a newline character is not allowed in an escape name
+       •   --user=user_name, -u user_name The user name of the MySQL account to use for
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ man mysql
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ mysql -u root
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+ivan@Ivan-PC:~/Рабочий стол/Учёба/8 семестр/SQL/Практика$ sudo mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.23-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database testDB
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create user 'ivan'@'localhost' identified by 'ivan'
+    -> ;
+ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+mysql> create user 'ivan'@'localhost' identified by 'ivan1234'
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all on testDB.* to 'ivan'@'localhost'
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all privileges on testDB.* to 'ivan'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT SELECT,UPDATE,DELETE ON testDB.* TO 'my_user'@'localhost';
+ERROR 1410 (42000): You are not allowed to create a user with GRANT
+mysql> GRANT SELECT,UPDATE,DELETE ON testDB.* TO 'ivan'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> revoke update on testdb.* from 'ivan'@'localhost';
+ERROR 1141 (42000): There is no such grant defined for user 'ivan' on host 'localhost'
+mysql> revoke update on testDB.* from 'ivan'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'ivan'@'localhost';
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Grants for ivan@localhost                                                                                                                                                                                                      |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ivan`@`localhost`                                                                                                                                                                                       |
+| GRANT SELECT, INSERT, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON `testDB`.* TO `ivan`@`localhost` |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> GRANT UPDATE ON testDB.* TO 'ivan'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'ivan'@'localhost';
++----------------------------------------------------------+
+| Grants for ivan@localhost                                |
++----------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ivan`@`localhost`                 |
+| GRANT ALL PRIVILEGES ON `testDB`.* TO `ivan`@`localhost` |
++----------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> describe mysql
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> describe mysql.user;
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Field                    | Type                              | Null | Key | Default               | Extra |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Host                     | char(255)                         | NO   | PRI |                       |       |
+| User                     | char(32)                          | NO   | PRI |                       |       |
+| Select_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Insert_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Update_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Delete_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Reload_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Shutdown_priv            | enum('N','Y')                     | NO   |     | N                     |       |
+| Process_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| File_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Grant_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| References_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Index_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_db_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Super_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tmp_table_priv    | enum('N','Y')                     | NO   |     | N                     |       |
+| Lock_tables_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Execute_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_slave_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_client_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_view_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_view_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_routine_priv      | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_routine_priv       | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_user_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Event_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Trigger_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tablespace_priv   | enum('N','Y')                     | NO   |     | N                     |       |
+| ssl_type                 | enum('','ANY','X509','SPECIFIED') | NO   |     |                       |       |
+| ssl_cipher               | blob                              | NO   |     | NULL                  |       |
+| x509_issuer              | blob                              | NO   |     | NULL                  |       |
+| x509_subject             | blob                              | NO   |     | NULL                  |       |
+| max_questions            | int unsigned                      | NO   |     | 0                     |       |
+| max_updates              | int unsigned                      | NO   |     | 0                     |       |
+| max_connections          | int unsigned                      | NO   |     | 0                     |       |
+| max_user_connections     | int unsigned                      | NO   |     | 0                     |       |
+| plugin                   | char(64)                          | NO   |     | caching_sha2_password |       |
+| authentication_string    | text                              | YES  |     | NULL                  |       |
+| password_expired         | enum('N','Y')                     | NO   |     | N                     |       |
+| password_last_changed    | timestamp                         | YES  |     | NULL                  |       |
+| password_lifetime        | smallint unsigned                 | YES  |     | NULL                  |       |
+| account_locked           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_role_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_role_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Password_reuse_history   | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_reuse_time      | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_require_current | enum('N','Y')                     | YES  |     | NULL                  |       |
+| User_attributes          | json                              | YES  |     | NULL                  |       |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+51 rows in set (0.01 sec)
+
+mysql> select user, host from mysql.user;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| debian-sys-maint | localhost |
+| ivan             | localhost |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> 
+

@@ -1,0 +1,16 @@
+20. ВВЕДЕНИЕ: ПРЕДСТАВЛЕНИЯ - https://www.sql.ru/docs/sql/u_sql/ch20.shtml
+CREATE SYNONYM - https://sql-language.ru/create-synonym.html
+Курсоры SQL Server - https://docs.microsoft.com/ru-ru/sql/relational-databases/cursors?view=sql-server-ver15
+CREATE SERVER AUDIT (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/create-server-audit-transact-sql?view=sql-server-ver15
+SET LOG | View collection set logs (SQL Server Management Studio) - https://docs.microsoft.com/en-nz/sql/relational-databases/data-collection/view-collection-set-logs-sql-server-management-studio?view=sql-server-2017
+CREATE QUEUE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/create-queue-transact-sql?view=sql-server-ver15
+---
+SMALLFLOAT (одинарная точность) ?
+VARCHAR
+DATE | почему год (yyyy) 0001-9999, когда отсчёт с 31 декабря 1899? 89 - это ведь 1989, да?
+Урок №33. Типы данных с плавающей точкой: float, double и long double - https://ravesli.com/urok-33-tip-dannyh-s-plavayushhej-tochkoj-floating-point/
+Слайд 32 (конец).png - почему DAY TO FRACTION возможен? (см. слайд 31)
+---
+INTERVAL - https://andreyex.ru/mysql/interval-v-mysql/
+	http://old.code.mu/sql/interval.html
+

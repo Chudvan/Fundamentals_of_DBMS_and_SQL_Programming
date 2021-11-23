@@ -1,0 +1,1 @@
+srvm/admin/clustdb.sql=true

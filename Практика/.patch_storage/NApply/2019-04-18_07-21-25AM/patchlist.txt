@@ -1,0 +1,5 @@
+User invokes OPatch via "NApply" to process the following patches:
+
+Patch ID: 29585399
+Patch Location: "/home/oracle/patch/29547676/29585399"
+Patch storage area: "/u01/app/oracle/product/19.0.0/dbhome_1/.patch_storage/29585399_Apr_9_2019_19_12_47"

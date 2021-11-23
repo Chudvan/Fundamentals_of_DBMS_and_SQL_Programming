@@ -1,0 +1,50 @@
+ALTER INDEX - https://docs.oracle.com/cd/B28359_01/server.111/b28286/statements_1009.htm#SQLRF00805
+	ALTER INDEX (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/alter-index-transact-sql?view=sql-server-ver15
+SQL литералы - https://oracleplsql.ru/literals-sql.html
+SQL оператор ALTER TABLE - https://oracleplsql.ru/alter-table-sql.html
+CLOSE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/close-transact-sql?view=sql-server-ver15
+CREATE DATABASE - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15&tabs=sqlpool#examples
+CREATE INDEX (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/create-index-transact-sql?view=sql-server-ver15
+CREATE SCHEMA (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15
+DROP DATABASE - http://www.mysql.ru/docs/man/DROP_DATABASE.html
+RENAME TABLE - http://www.mysql.ru/docs/man/RENAME_TABLE.html
+Оператор INSERT - http://www.sql-tutorial.ru/ru/book_operator_insert.html
+Команда DELETE - https://sql-language.ru/delete.html
+SQL SELECT - https://sql-language.ru/query-select.html
+Команда UPDATE - https://sql-language.ru/update.html
+CLOSE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/close-transact-sql?view=sql-server-ver15
+DECLARE @local_variable (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/declare-local-variable-transact-sql?view=sql-server-ver15
+FETCH ОПЕРАТОР - https://oracleplsql.ru/fetch-statement.html
+	FETCH (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/fetch-transact-sql?view=sql-server-ver15
+OPEN (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/open-transact-sql?view=sql-server-ver15
+4.5.3 Синтаксис команды FLUSH - http://www.mysql.ru/docs/man/FLUSH.html
+DESCRIBE - http://www.softtime.ru/bookphp/gl12_9.php#4
+EXECUTE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/execute-transact-sql?view=sql-server-ver15
+	Oracle/PLSQL динамический SQL - https://oracleplsql.ru/dynamic-sql.html
+PREPARE - https://postgrespro.ru/docs/postgrespro/9.5/sql-prepare
+	Создать динамический запрос с использованием PREPARE и EXECUTE в MySQL - http://blog.nagaychenko.com/2013/01/08/%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81-prepare-execute-mysql/
+GRANT - https://sql-language.ru/grant.html
+LOCK TABLE ОПЕРАТОР - https://oracleplsql.ru/lock-table.html
+REVOKE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/revoke-transact-sql?view=sql-server-ver15
+	REVOKE (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/statements/revoke-transact-sql?view=sql-server-ver15
+BEGIN WORK - https://www.postgresql.org/docs/6.4/sql-beginwork.htm
+COMMIT WORK (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/commit-work-transact-sql?view=sql-server-ver15
+ROLLBACK WORK (Transact-SQL) - https://docs.microsoft.com/ru-ru/sql/t-sql/language-elements/rollback-work-transact-sql?view=sql-server-ver15
+ROLLFORWARD DATABASE - https://www.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001978.html
+Informix СУБД от IBM - https://yandex.ru/search/?text=informix%20sql&lr=213&redircnt=1613917589.1 
+---
+ORACLE LINUX 7.3 дистрибутив - https://losst.ru/ustanovka-oracle-linux-7-3
+Oracle на Ubuntu можно поставить лишь на виртуалке или через Docker:
+	https://stackoverflow.com/questions/58259382/trying-to-install-oracle-database-19c-on-ubuntu-19-04
+	https://www.sql.ru/forum/1328461/praktika-ustanovki-oracle-na-ubuntu-linux
+	Системные требования - https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/operating-system-checklist-for-oracle-database-installation-on-linux.html#GUID-E5C0A90E-7750-45D9-A8BC-C7319ED934F0
+	https://habr.com/ru/post/135461/
+---
+Слайд 15 | Квалификатор - одна из единиц измерения времени
+Слайд 24 | Значащие цифры - https://present5.com/presentation/3/47264583_158366649.pdf-img/47264583_158366649.pdf-21.jpg
+DECIMAL(m,d), DEC(m,d), NUMERIC(m,d) - https://oracleplsql.ru/data-types-mysql.html
+float C содержит 7 значащих цифр, double С - 15 - "точность float равна 7." - https://ravesli.com/urok-33-tip-dannyh-s-plavayushhej-tochkoj-floating-point/
+FLOAT(m,d), DOUBLE(m,d), DOUBLE PRECISION(m,d) - https://oracleplsql.ru/data-types-mysql.html
+INTERVAL
+MONEY - https://docs.microsoft.com/ru-ru/sql/t-sql/data-types/money-and-smallmoney-transact-sql?view=sql-server-ver15
+

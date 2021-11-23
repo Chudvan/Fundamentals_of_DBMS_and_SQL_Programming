@@ -1,0 +1,31 @@
+Текущая директория в Python - https://ru.stackoverflow.com/questions/535318/%D0%A2%D0%B5%D0%BA%D1%83%D1%89%D0%B0%D1%8F-%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B2-python
+Работа с файлами в Python с помощью модуля OS - https://pythonru.com/osnovy/rabota-s-fajlami-v-python-s-pomoshhju-modulja-os
+Как получить список поддиректорий в директории - https://ru.stackoverflow.com/questions/1177686/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C-%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%B9-%D0%B2-%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%B8
+Getting a list of all subdirectories in the current directory - https://stackoverflow.com/questions/973473/getting-a-list-of-all-subdirectories-in-the-current-directory
+Какой в Python 3.6 есть аналог команде “cd” для смены рабочей директории из интерпретатора? - https://ru.stackoverflow.com/questions/691854/%D0%9A%D0%B0%D0%BA%D0%BE%D0%B9-%D0%B2-python-3-6-%D0%B5%D1%81%D1%82%D1%8C-%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B5-cd-%D0%B4%D0%BB%D1%8F-%D1%81%D0%BC%D0%B5%D0%BD%D1%8B-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9-%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%B8-%D0%B8%D0%B7-%D0%B8%D0%BD%D1%82%D0%B5
+Обрабатываем csv файлы — Модуль csv - https://python-scripts.com/import-csv-python
+csv — CSV File Reading and Writing - https://docs.python.org/3/library/csv.html
+CSV file как задать при записи нестандартные разделители при запись файла - https://www.cyberforum.ru/python-beginners/thread2667317.html
+Как сохранить нулевые значения при записи в CSV - https://question-it.com/questions/163279/kak-sohranit-nulevye-znachenija-pri-zapisi-v-csv
+---
+Как вывести список баз данных - https://ru.stackoverflow.com/questions/766972/%d0%9a%d0%b0%d0%ba-%d0%b2%d1%8b%d0%b2%d0%b5%d1%81%d1%82%d0%b8-%d1%81%d0%bf%d0%b8%d1%81%d0%be%d0%ba-%d0%b1%d0%b0%d0%b7-%d0%b4%d0%b0%d0%bd%d0%bd%d1%8b%d1%85
+Подключение к удаленной базе MySQL через pymysql - https://ru.stackoverflow.com/questions/756139/%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA-%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D0%B9-%D0%B1%D0%B0%D0%B7%D0%B5-mysql-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-pymysql
+How do I connect to a MySQL Database in Python? - https://stackoverflow.com/questions/372885/how-do-i-connect-to-a-mysql-database-in-python
+Connection Object - https://pymysql.readthedocs.io/en/latest/modules/connections.html
+СОЗДАНИЕ ПОЛЬЗОВАТЕЛЯ MYSQL - https://losst.ru/sozdanie-polzovatelya-mysql
+ERROR 1698 (28000): Access denied for user 'root'@'localhost' | NEW Version of MYSQL does it this way. - https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost
+КОМАНДА SUDO В LINUX - https://losst.ru/komanda-sudo-v-linux
+---
+PyMySQL — инструкция по использованию MySQL на примерах - https://python-scripts.com/pymysql
+Базы данных в Python - https://python-scripts.com/database
+УСТАНОВКА MYSQL В UBUNTU 20.04 - https://losst.ru/ustanovka-mysql-ubuntu-16-04
+Как посмотреть список таблиц и их структуру в MySQL - https://www.opennet.ru/tips/info/607.shtml
+Список (показать) таблиц в базе данных MySQL - https://andreyex.ru/bazy-dannyx/baza-dannyx-mysql/spisok-pokazat-tablits-v-baze-dannyh-mysql/
+Как подставить переменную в строку - https://devman.org/encyclopedia/python_strings/string_interpolation/
+printf-style String Formatting - https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting
+Функция range() в Python - https://python-scripts.com/range
+---
+PyMySQL commit - https://ru.stackoverflow.com/questions/1009001/pymysql-%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-insert
+DECIMAL(m,d) - https://oracleplsql.ru/data-types-mysql.html
+PYTHON | ОПЕРАЦИЯ ДЛЯ КАЖДОГО ЭЛЕМЕНТА В СПИСКЕ - http://espressocode.top/python-operation-to-each-element-in-list/
+

@@ -1,0 +1,2978 @@
+ivan@Ivan-PC:~$ sudo mysql -u root -p
+[sudo] пароль для ivan: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.23-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+    -> WHERE EXTRACT(WEEKDAY FROM order_date) IN (1, 5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WEEKDAY FROM order_date) IN (1, 5)' at line 2
+mysql> SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+    -> WHERE WEEKDAY(order_date) IN (1, 5);
+ERROR 1046 (3D000): No database selected
+mysql> USE stores;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+    -> WHERE WEEKDAY(order_date) IN (1, 5);
++-----------+------------+------------+
+| order_num | order_date | ship_date  |
++-----------+------------+------------+
+|      1002 | 1994-05-21 | 1994-05-26 |
+|      1005 | 1994-05-24 | 1994-06-09 |
+|      1007 | 1994-05-31 | 1994-06-05 |
+|      1008 | 1994-06-07 | 1994-07-06 |
+|      1009 | 1994-06-14 | 1994-06-21 |
+|      1011 | 1994-06-18 | 1994-07-03 |
+|      1012 | 1994-06-18 | 1994-06-29 |
+|      1014 | 1994-06-25 | 1994-07-03 |
+|      1017 | 1994-07-09 | 1994-07-13 |
++-----------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+    -> WHERE WEEKDAY(order_date) IN (0, 4);
++-----------+------------+------------+
+| order_num | order_date | ship_date  |
++-----------+------------+------------+
+|      1001 | 1994-05-20 | 1994-06-01 |
+|      1006 | 1994-05-30 | NULL       |
+|      1010 | 1994-06-17 | 1994-06-29 |
+|      1015 | 1994-06-27 | 1994-07-16 |
+|      1019 | 1994-07-11 | 1994-07-16 |
++-----------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT order_num, order_date, ship_date FROM CHUDNOVETS_ORDERS
+    -> WHERE WEEKDAY(order_date) IN (0, 4)
+    -> AND
+    -> EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM ship_date);
++-----------+------------+------------+
+| order_num | order_date | ship_date  |
++-----------+------------+------------+
+|      1010 | 1994-06-17 | 1994-06-29 |
+|      1019 | 1994-07-11 | 1994-07-16 |
++-----------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS ORDER BY customer_num;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num;
++--------------+------------------+
+| customer_num | SUM(ship_charge) |
++--------------+------------------+
+|          104 |            38.00 |
+|          101 |            15.30 |
+|          106 |            31.50 |
+|          116 |            16.20 |
+|          112 |            14.20 |
+|          117 |            39.40 |
+|          110 |            20.10 |
+|          111 |            10.00 |
+|          115 |            12.30 |
+|          119 |            11.80 |
+|          120 |            18.00 |
+|          121 |            20.00 |
+|          122 |            23.00 |
++--------------+------------------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num ORDER BY customer_num;
++--------------+------------------+
+| customer_num | SUM(ship_charge) |
++--------------+------------------+
+|          101 |            15.30 |
+|          104 |            38.00 |
+|          106 |            31.50 |
+|          110 |            20.10 |
+|          111 |            10.00 |
+|          112 |            14.20 |
+|          115 |            12.30 |
+|          116 |            16.20 |
+|          117 |            39.40 |
+|          119 |            11.80 |
+|          120 |            18.00 |
+|          121 |            20.00 |
+|          122 |            23.00 |
++--------------+------------------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num ORDER BY customer_num DESC;
++--------------+------------------+
+| customer_num | SUM(ship_charge) |
++--------------+------------------+
+|          122 |            23.00 |
+|          121 |            20.00 |
+|          120 |            18.00 |
+|          119 |            11.80 |
+|          117 |            39.40 |
+|          116 |            16.20 |
+|          115 |            12.30 |
+|          112 |            14.20 |
+|          111 |            10.00 |
+|          110 |            20.10 |
+|          106 |            31.50 |
+|          104 |            38.00 |
+|          101 |            15.30 |
++--------------+------------------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num ORDER BY SUM(ship_charge) DESC;
++--------------+------------------+
+| customer_num | SUM(ship_charge) |
++--------------+------------------+
+|          117 |            39.40 |
+|          104 |            38.00 |
+|          106 |            31.50 |
+|          122 |            23.00 |
+|          110 |            20.10 |
+|          121 |            20.00 |
+|          120 |            18.00 |
+|          116 |            16.20 |
+|          101 |            15.30 |
+|          112 |            14.20 |
+|          115 |            12.30 |
+|          119 |            11.80 |
+|          111 |            10.00 |
++--------------+------------------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT SUM(ship_charge) FROM CHUDNOVETS_ORDERS GROUP by customer_num ORDER BY SUM(ship_charge) DESC;
++------------------+
+| SUM(ship_charge) |
++------------------+
+|            39.40 |
+|            38.00 |
+|            31.50 |
+|            23.00 |
+|            20.10 |
+|            20.00 |
+|            18.00 |
+|            16.20 |
+|            15.30 |
+|            14.20 |
+|            12.30 |
+|            11.80 |
+|            10.00 |
++------------------+
+13 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS GROUP BY manu_code;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_ITEMS.ITEM_NUM' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(*) FROM CHUDNOVETS_ITEMS GROUP BY manu_code;
++----------+
+| COUNT(*) |
++----------+
+|        9 |
+|        7 |
+|       16 |
+|        2 |
+|        8 |
+|        3 |
+|        1 |
+|        4 |
+|        2 |
++----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, COUNT(*) FROM CHUDNOVETS_ITEMS GROUP BY manu_code;
++-----------+----------+
+| manu_code | COUNT(*) |
++-----------+----------+
+| HRO       |        9 |
+| HSK       |        7 |
+| ANZ       |       16 |
+| NRG       |        2 |
+| SMT       |        8 |
+| SHM       |        3 |
+| NKL       |        1 |
+| PRC       |        4 |
+| KAR       |        2 |
++-----------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS ORDER BY manu_code;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, COUNT(*) FROM CHUDNOVETS_ITEMS GROUP BY manu_code, order_num;
++-----------+----------+
+| manu_code | COUNT(*) |
++-----------+----------+
+| HRO       |        1 |
+| HSK       |        2 |
+| ANZ       |        3 |
+| HRO       |        2 |
+| NRG       |        1 |
+| SMT       |        2 |
+| HRO       |        4 |
+| ANZ       |        2 |
+| SMT       |        1 |
+| SMT       |        1 |
+| ANZ       |        1 |
+| ANZ       |        2 |
+| ANZ       |        3 |
+| HSK       |        1 |
+| SMT       |        1 |
+| SHM       |        1 |
+| NKL       |        1 |
+| PRC       |        2 |
+| SHM       |        1 |
+| ANZ       |        2 |
+| NRG       |        1 |
+| ANZ       |        1 |
+| SMT       |        1 |
+| HRO       |        1 |
+| PRC       |        2 |
+| KAR       |        1 |
+| KAR       |        1 |
+| HSK       |        2 |
+| SMT       |        1 |
+| ANZ       |        2 |
+| HSK       |        1 |
+| HSK       |        1 |
+| SHM       |        1 |
+| SMT       |        1 |
+| HRO       |        1 |
++-----------+----------+
+35 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, order_num, COUNT(*) FROM CHUDNOVETS_ITEMS GROUP BY manu_code, order_num;
++-----------+-----------+----------+
+| manu_code | order_num | COUNT(*) |
++-----------+-----------+----------+
+| HRO       |      1001 |        1 |
+| HSK       |      1002 |        2 |
+| ANZ       |      1003 |        3 |
+| HRO       |      1004 |        2 |
+| NRG       |      1005 |        1 |
+| SMT       |      1006 |        2 |
+| HRO       |      1007 |        4 |
+| ANZ       |      1008 |        2 |
+| SMT       |      1009 |        1 |
+| SMT       |      1010 |        1 |
+| ANZ       |      1011 |        1 |
+| ANZ       |      1012 |        2 |
+| ANZ       |      1013 |        3 |
+| HSK       |      1014 |        1 |
+| SMT       |      1015 |        1 |
+| SHM       |      1016 |        1 |
+| NKL       |      1017 |        1 |
+| PRC       |      1018 |        2 |
+| SHM       |      1019 |        1 |
+| ANZ       |      1005 |        2 |
+| NRG       |      1006 |        1 |
+| ANZ       |      1010 |        1 |
+| SMT       |      1013 |        1 |
+| HRO       |      1014 |        1 |
+| PRC       |      1016 |        2 |
+| KAR       |      1017 |        1 |
+| KAR       |      1018 |        1 |
+| HSK       |      1004 |        2 |
+| SMT       |      1005 |        1 |
+| ANZ       |      1006 |        2 |
+| HSK       |      1007 |        1 |
+| HSK       |      1016 |        1 |
+| SHM       |      1017 |        1 |
+| SMT       |      1018 |        1 |
+| HRO       |      1018 |        1 |
++-----------+-----------+----------+
+35 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_weight) FROM CHUDNOVETS_ORDERS GROUP by customer_num;
++--------------+------------------+
+| customer_num | SUM(ship_weight) |
++--------------+------------------+
+|          104 |           127.20 |
+|          101 |            50.60 |
+|          106 |           136.40 |
+|          116 |            80.80 |
+|          112 |            70.80 |
+|          117 |           196.70 |
+|          110 |            66.20 |
+|          111 |            20.40 |
+|          115 |            40.60 |
+|          119 |            35.00 |
+|          120 |            60.00 |
+|          121 |            70.50 |
+|          122 |            90.00 |
++--------------+------------------+
+13 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS ORDER BY customer_num;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_weight) FROM CHUDNOVETS_ORDERS GROUP by customer_num HAVING SUM(ship_weight) > 30 ORDER BY SUM(ship_weight) DESC;
++--------------+------------------+
+| customer_num | SUM(ship_weight) |
++--------------+------------------+
+|          117 |           196.70 |
+|          106 |           136.40 |
+|          104 |           127.20 |
+|          122 |            90.00 |
+|          116 |            80.80 |
+|          112 |            70.80 |
+|          121 |            70.50 |
+|          110 |            66.20 |
+|          120 |            60.00 |
+|          101 |            50.60 |
+|          115 |            40.60 |
+|          119 |            35.00 |
++--------------+------------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_weight) FROM CHUDNOVETS_ORDERS GROUP by customer_num HAVING SUM(ship_weight) < 30 ORDER BY SUM(ship_weight) DESC;
++--------------+------------------+
+| customer_num | SUM(ship_weight) |
++--------------+------------------+
+|          111 |            20.40 |
++--------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT customer_num, SUM(ship_weight) AS sum_ship_weight FROM CHUDNOVETS_ORDERS GROUP by customer_num HAVING SUM(ship_weight) > 30 ORDER BY SUM(ship_weight) DESC;
++--------------+-----------------+
+| customer_num | sum_ship_weight |
++--------------+-----------------+
+|          117 |          196.70 |
+|          106 |          136.40 |
+|          104 |          127.20 |
+|          122 |           90.00 |
+|          116 |           80.80 |
+|          112 |           70.80 |
+|          121 |           70.50 |
+|          110 |           66.20 |
+|          120 |           60.00 |
+|          101 |           50.60 |
+|          115 |           40.60 |
+|          119 |           35.00 |
++--------------+-----------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER WHERE state='CA' ORDER BY company;
++--------------+----------+-----------+---------------------+---------------------+-----------------+---------------+-------+---------+--------------+-----------+
+| CUSTOMER_NUM | FNAME    | LNAME     | COMPANY             | ADDRESS1            | ADDRESS2        | CITY          | STATE | ZIPCODE | PHONE        | cust_date |
++--------------+----------+-----------+---------------------+---------------------+-----------------+---------------+-------+---------+--------------+-----------+
+|          110 | Roy      | Jaeger    | AA Athletics        | 520 Topaz Way       | NULL            | Redwood City  | CA    | 94062   | 415-743-3611 | NULL      |
+|          101 | Ludwig   | Pauli     | All Sports Supplies | 213 Erstwild Court  | NULL            | Sunnyvale     | CA    | 94086   | 408-789-8075 | NULL      |
+|          107 | Charles  | Ream      | Athletic Supplies   | 41 Jordan Avenue    | NULL            | Palo Alto     | CA    | 94304   | 415-356-9876 | NULL      |
+|          118 | Dick     | Baxter    | Blue Ribbon Sports  | 5427 College        | NULL            | Oakland       | CA    | 94609   | 415-655-0011 | NULL      |
+|          115 | Alfred   | Grant     | Gold Medal Sports   | 776 Gary Avenue     | NULL            | Menlo Park    | CA    | 94025   | 415-356-1123 | NULL      |
+|          117 | Arnold   | Sipes     | Kids Korner         | 850 Lytton Court    | NULL            | Redwood City  | CA    | 94063   | 415-245-4578 | NULL      |
+|          105 | Raymond  | Vector    | Los Altos Sports    | 1899 La Loma Drive  | NULL            | Los Altos     | CA    | 94022   | 415-776-3249 | NULL      |
+|          116 | Jean     | Parmelee  | Olympic City        | 1104 Spinosa Drive  | NULL            | Mountain View | CA    | 94040   | 415-534-8822 | NULL      |
+|          103 | Philip   | Currie    | Phil`s Sports       | 654 Poplar          | P. O. Box 3498  | Palo Alto     | CA    | 94303   | 415-328-4543 | NULL      |
+|          104 | Anthony  | Higgins   | Play Ball!          | East Shopping Cntr. | 422 Bay Road    | Redwood City  | CA    | 94026   | 415-368-1100 | NULL      |
+|          108 | Donald   | Quinn     | Quinn`s Sports      | 587 Alvarado        | NULL            | Redwood City  | CA    | 94063   | 415-544-8729 | NULL      |
+|          112 | Margaret | Lawson    | Runners & Others    | 234 Wyandotte Way   | NULL            | Los Altos     | CA    | 94022   | 415-887-7235 | NULL      |
+|          109 | Jane     | Miller    | Sport Stuff         | Mayfair Mart        | 7345 Ross Blvd. | Sunnyvale     | CA    | 94086   | 408-723-8789 | NULL      |
+|          114 | Frank    | Albertson | Sporting Place      | 947 Waverly Place   | NULL            | Redwood City  | CA    | 94062   | 415-886-6677 | NULL      |
+|          111 | Frances  | Keyes     | Sports Center       | 3199 Sterling Court | NULL            | Sunnyvale     | CA    | 94085   | 408-277-7245 | NULL      |
+|          102 | Carole   | Sadler    | Sports Spot         | 785 Geary St        | NULL            | San Francisco | CA    | 94117   | 415-822-1289 | NULL      |
+|          113 | Lana     | Beatty    | Sportstown          | 654 Oak Grove       | NULL            | Menlo Park    | CA    | 94025   | 415-356-9982 | NULL      |
+|          106 | George   | Watson    | Watson & Son        | 1143 Carver Place   | NULL            | Mountain View | CA    | 94063   | 415-389-8789 | NULL      |
++--------------+----------+-----------+---------------------+---------------------+-----------------+---------------+-------+---------+--------------+-----------+
+18 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER WHEREORDER BY company;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BY company' at line 1
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER WHERE ORDER BY company;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY company' at line 1
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER ORDER BY company;
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+| CUSTOMER_NUM | FNAME    | LNAME     | COMPANY              | ADDRESS1            | ADDRESS2           | CITY          | STATE | ZIPCODE | PHONE        | cust_date |
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+|          110 | Roy      | Jaeger    | AA Athletics         | 520 Topaz Way       | NULL               | Redwood City  | CA    | 94062   | 415-743-3611 | NULL      |
+|          101 | Ludwig   | Pauli     | All Sports Supplies  | 213 Erstwild Court  | NULL               | Sunnyvale     | CA    | 94086   | 408-789-8075 | NULL      |
+|          107 | Charles  | Ream      | Athletic Supplies    | 41 Jordan Avenue    | NULL               | Palo Alto     | CA    | 94304   | 415-356-9876 | NULL      |
+|          118 | Dick     | Baxter    | Blue Ribbon Sports   | 5427 College        | NULL               | Oakland       | CA    | 94609   | 415-655-0011 | NULL      |
+|          120 | Fred     | Jewell    | Century Pro Shop     | 6627 N. 17th Way    | NULL               | Phoenix       | AZ    | 85016   | 602-265-8754 | NULL      |
+|          121 | Jason    | Wallack   | City Sports          | Lake Biltmore Mall  | 350 W. 23rd Street | Wilmington    | DE    | 19898   | 302-366-7511 | NULL      |
+|          115 | Alfred   | Grant     | Gold Medal Sports    | 776 Gary Avenue     | NULL               | Menlo Park    | CA    | 94025   | 415-356-1123 | NULL      |
+|          117 | Arnold   | Sipes     | Kids Korner          | 850 Lytton Court    | NULL               | Redwood City  | CA    | 94063   | 415-245-4578 | NULL      |
+|          105 | Raymond  | Vector    | Los Altos Sports     | 1899 La Loma Drive  | NULL               | Los Altos     | CA    | 94022   | 415-776-3249 | NULL      |
+|          116 | Jean     | Parmelee  | Olympic City         | 1104 Spinosa Drive  | NULL               | Mountain View | CA    | 94040   | 415-534-8822 | NULL      |
+|          103 | Philip   | Currie    | Phil`s Sports        | 654 Poplar          | P. O. Box 3498     | Palo Alto     | CA    | 94303   | 415-328-4543 | NULL      |
+|          104 | Anthony  | Higgins   | Play Ball!           | East Shopping Cntr. | 422 Bay Road       | Redwood City  | CA    | 94026   | 415-368-1100 | NULL      |
+|          108 | Donald   | Quinn     | Quinn`s Sports       | 587 Alvarado        | NULL               | Redwood City  | CA    | 94063   | 415-544-8729 | NULL      |
+|          112 | Margaret | Lawson    | Runners & Others     | 234 Wyandotte Way   | NULL               | Los Altos     | CA    | 94022   | 415-887-7235 | NULL      |
+|          109 | Jane     | Miller    | Sport Stuff          | Mayfair Mart        | 7345 Ross Blvd.    | Sunnyvale     | CA    | 94086   | 408-723-8789 | NULL      |
+|          114 | Frank    | Albertson | Sporting Place       | 947 Waverly Place   | NULL               | Redwood City  | CA    | 94062   | 415-886-6677 | NULL      |
+|          111 | Frances  | Keyes     | Sports Center        | 3199 Sterling Court | NULL               | Sunnyvale     | CA    | 94085   | 408-277-7245 | NULL      |
+|          102 | Carole   | Sadler    | Sports Spot          | 785 Geary St        | NULL               | San Francisco | CA    | 94117   | 415-822-1289 | NULL      |
+|          113 | Lana     | Beatty    | Sportstown           | 654 Oak Grove       | NULL               | Menlo Park    | CA    | 94025   | 415-356-9982 | NULL      |
+|          122 | Cathy    | O`Brian   | The Sporting Life    | 543 Nassau Street   | NULL               | Princeton     | NJ    | 08540   | 609-342-0054 | NULL      |
+|          119 | Bob      | Shorter   | The Triathletes Club | 2405 Kings Highway  | NULL               | Cherry Hill   | NJ    | 08002   | 609-663-6079 | NULL      |
+|          106 | George   | Watson    | Watson & Son         | 1143 Carver Place   | NULL               | Mountain View | CA    | 94063   | 415-389-8789 | NULL      |
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT CHUDNOVETS_CUSTOMER.customer_num, CHUDNOVETS_CUSTOMER.company, CHUDNOVETS_ORDERS.order_num FROM CHUDNOVETS_CUSTOMER, CHUDNOVETS_ORDERS
+    -> WHERE CHUDNOVETS_CUSTOMER.customer_num = CHUDNOVETS_ORDERS.customer_num ORDER BY CHUDNOVETS_ORDERS.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER;
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+| CUSTOMER_NUM | FNAME    | LNAME     | COMPANY              | ADDRESS1            | ADDRESS2           | CITY          | STATE | ZIPCODE | PHONE        | cust_date |
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+|          101 | Ludwig   | Pauli     | All Sports Supplies  | 213 Erstwild Court  | NULL               | Sunnyvale     | CA    | 94086   | 408-789-8075 | NULL      |
+|          102 | Carole   | Sadler    | Sports Spot          | 785 Geary St        | NULL               | San Francisco | CA    | 94117   | 415-822-1289 | NULL      |
+|          103 | Philip   | Currie    | Phil`s Sports        | 654 Poplar          | P. O. Box 3498     | Palo Alto     | CA    | 94303   | 415-328-4543 | NULL      |
+|          104 | Anthony  | Higgins   | Play Ball!           | East Shopping Cntr. | 422 Bay Road       | Redwood City  | CA    | 94026   | 415-368-1100 | NULL      |
+|          105 | Raymond  | Vector    | Los Altos Sports     | 1899 La Loma Drive  | NULL               | Los Altos     | CA    | 94022   | 415-776-3249 | NULL      |
+|          106 | George   | Watson    | Watson & Son         | 1143 Carver Place   | NULL               | Mountain View | CA    | 94063   | 415-389-8789 | NULL      |
+|          107 | Charles  | Ream      | Athletic Supplies    | 41 Jordan Avenue    | NULL               | Palo Alto     | CA    | 94304   | 415-356-9876 | NULL      |
+|          108 | Donald   | Quinn     | Quinn`s Sports       | 587 Alvarado        | NULL               | Redwood City  | CA    | 94063   | 415-544-8729 | NULL      |
+|          109 | Jane     | Miller    | Sport Stuff          | Mayfair Mart        | 7345 Ross Blvd.    | Sunnyvale     | CA    | 94086   | 408-723-8789 | NULL      |
+|          110 | Roy      | Jaeger    | AA Athletics         | 520 Topaz Way       | NULL               | Redwood City  | CA    | 94062   | 415-743-3611 | NULL      |
+|          111 | Frances  | Keyes     | Sports Center        | 3199 Sterling Court | NULL               | Sunnyvale     | CA    | 94085   | 408-277-7245 | NULL      |
+|          112 | Margaret | Lawson    | Runners & Others     | 234 Wyandotte Way   | NULL               | Los Altos     | CA    | 94022   | 415-887-7235 | NULL      |
+|          113 | Lana     | Beatty    | Sportstown           | 654 Oak Grove       | NULL               | Menlo Park    | CA    | 94025   | 415-356-9982 | NULL      |
+|          114 | Frank    | Albertson | Sporting Place       | 947 Waverly Place   | NULL               | Redwood City  | CA    | 94062   | 415-886-6677 | NULL      |
+|          115 | Alfred   | Grant     | Gold Medal Sports    | 776 Gary Avenue     | NULL               | Menlo Park    | CA    | 94025   | 415-356-1123 | NULL      |
+|          116 | Jean     | Parmelee  | Olympic City         | 1104 Spinosa Drive  | NULL               | Mountain View | CA    | 94040   | 415-534-8822 | NULL      |
+|          117 | Arnold   | Sipes     | Kids Korner          | 850 Lytton Court    | NULL               | Redwood City  | CA    | 94063   | 415-245-4578 | NULL      |
+|          118 | Dick     | Baxter    | Blue Ribbon Sports   | 5427 College        | NULL               | Oakland       | CA    | 94609   | 415-655-0011 | NULL      |
+|          119 | Bob      | Shorter   | The Triathletes Club | 2405 Kings Highway  | NULL               | Cherry Hill   | NJ    | 08002   | 609-663-6079 | NULL      |
+|          120 | Fred     | Jewell    | Century Pro Shop     | 6627 N. 17th Way    | NULL               | Phoenix       | AZ    | 85016   | 602-265-8754 | NULL      |
+|          121 | Jason    | Wallack   | City Sports          | Lake Biltmore Mall  | 350 W. 23rd Street | Wilmington    | DE    | 19898   | 302-366-7511 | NULL      |
+|          122 | Cathy    | O`Brian   | The Sporting Life    | 543 Nassau Street   | NULL               | Princeton     | NJ    | 08540   | 609-342-0054 | NULL      |
++--------------+----------+-----------+----------------------+---------------------+--------------------+---------------+-------+---------+--------------+-----------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS ORDER BY customer_num;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER, CHUDNOVETS_ORDERS
+    -> WHERE CHUDNOVETS_CUSTOMER.customer_num = CHUDNOVETS_ORDERS.customer_num ORDER BY order_num;
+ERROR 1052 (23000): Column 'customer_num' in field list is ambiguous
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+    -> WHERE CHUDNOVETS_CUSTOMER.customer_num = CHUDNOVETS_ORDERS.customer_num ORDER BY order_num;
+ERROR 1054 (42S22): Unknown column 'CHUDNOVETS_CUSTOMER.customer_num' in 'where clause'
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+    -> WHERE c.customer_num = o.customer_num ORDER BY order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c INNER JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_numORDER BY o.order_num;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BY o.order_num' at line 1
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c INNER JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c NATURAL JOIN CHUDNOVETS_ORDERS o ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> ALTER ALTER TABLE CHUDNOVETS_ORDERS ALTER COLUMN customer_num TO customer_num_;
+ALTER TABLE CHUDNOVETS_ORDERS ALTER COLUMN customer_num TO customer_num_;
+^C
+mysql> ALTER TABLE CHUDNOVETS_ORDERS ALTER COLUMN customer_num TO customer_num_;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TO customer_num_' at line 1
+mysql> SHOW COLUMNS FROM CHUDNOVETS_ORDERS;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| ORDER_NUM     | int          | NO   |     | NULL    |       |
+| ORDER_DATE    | date         | YES  |     | NULL    |       |
+| CUSTOMER_NUM  | int          | NO   |     | NULL    |       |
+| SHIP_INSTRUCT | char(40)     | YES  |     | NULL    |       |
+| PO_NUM        | char(10)     | YES  |     | NULL    |       |
+| SHIP_DATE     | date         | YES  |     | NULL    |       |
+| SHIP_WEIGHT   | decimal(8,2) | YES  |     | NULL    |       |
+| SHIP_CHARGE   | decimal(8,2) | YES  |     | NULL    |       |
+| PAID_DATE     | date         | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_ORDERS CHANGE COLUMN CUSTOMER_NUM CUSTOMER_NUM_ integer;
+ALTER TABLE CHUDNOVETS_ORDERS CHANGE COLUMN CUSTOMER_NUM CUSTOMER_NUM_ integer;
+^C
+mysql> ALTER TABLE CHUDNOVETS_ORDERS CHANGE COLUMN CUSTOMER_NUM CUSTOMER_NUM_ integer;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_ORDERS;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| ORDER_NUM     | int          | NO   |     | NULL    |       |
+| ORDER_DATE    | date         | YES  |     | NULL    |       |
+| CUSTOMER_NUM_ | int          | YES  |     | NULL    |       |
+| SHIP_INSTRUCT | char(40)     | YES  |     | NULL    |       |
+| PO_NUM        | char(10)     | YES  |     | NULL    |       |
+| SHIP_DATE     | date         | YES  |     | NULL    |       |
+| SHIP_WEIGHT   | decimal(8,2) | YES  |     | NULL    |       |
+| SHIP_CHARGE   | decimal(8,2) | YES  |     | NULL    |       |
+| PAID_DATE     | date         | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c NATURAL JOIN CHUDNOVETS_ORDERS o ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          101 | All Sports Supplies  |      1001 |
+|          102 | Sports Spot          |      1001 |
+|          103 | Phil`s Sports        |      1001 |
+|          104 | Play Ball!           |      1001 |
+|          105 | Los Altos Sports     |      1001 |
+|          106 | Watson & Son         |      1001 |
+|          107 | Athletic Supplies    |      1001 |
+|          108 | Quinn`s Sports       |      1001 |
+|          109 | Sport Stuff          |      1001 |
+|          110 | AA Athletics         |      1001 |
+|          111 | Sports Center        |      1001 |
+|          112 | Runners & Others     |      1001 |
+|          113 | Sportstown           |      1001 |
+|          114 | Sporting Place       |      1001 |
+|          115 | Gold Medal Sports    |      1001 |
+|          116 | Olympic City         |      1001 |
+|          117 | Kids Korner          |      1001 |
+|          118 | Blue Ribbon Sports   |      1001 |
+|          119 | The Triathletes Club |      1001 |
+|          120 | Century Pro Shop     |      1001 |
+|          121 | City Sports          |      1001 |
+|          122 | The Sporting Life    |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          102 | Sports Spot          |      1002 |
+|          103 | Phil`s Sports        |      1002 |
+|          104 | Play Ball!           |      1002 |
+|          105 | Los Altos Sports     |      1002 |
+|          106 | Watson & Son         |      1002 |
+|          107 | Athletic Supplies    |      1002 |
+|          108 | Quinn`s Sports       |      1002 |
+|          109 | Sport Stuff          |      1002 |
+|          110 | AA Athletics         |      1002 |
+|          111 | Sports Center        |      1002 |
+|          112 | Runners & Others     |      1002 |
+|          113 | Sportstown           |      1002 |
+|          114 | Sporting Place       |      1002 |
+|          115 | Gold Medal Sports    |      1002 |
+|          116 | Olympic City         |      1002 |
+|          117 | Kids Korner          |      1002 |
+|          118 | Blue Ribbon Sports   |      1002 |
+|          119 | The Triathletes Club |      1002 |
+|          120 | Century Pro Shop     |      1002 |
+|          121 | City Sports          |      1002 |
+|          122 | The Sporting Life    |      1002 |
+|          101 | All Sports Supplies  |      1003 |
+|          102 | Sports Spot          |      1003 |
+|          103 | Phil`s Sports        |      1003 |
+|          104 | Play Ball!           |      1003 |
+|          105 | Los Altos Sports     |      1003 |
+|          106 | Watson & Son         |      1003 |
+|          107 | Athletic Supplies    |      1003 |
+|          108 | Quinn`s Sports       |      1003 |
+|          109 | Sport Stuff          |      1003 |
+|          110 | AA Athletics         |      1003 |
+|          111 | Sports Center        |      1003 |
+|          112 | Runners & Others     |      1003 |
+|          113 | Sportstown           |      1003 |
+|          114 | Sporting Place       |      1003 |
+|          115 | Gold Medal Sports    |      1003 |
+|          116 | Olympic City         |      1003 |
+|          117 | Kids Korner          |      1003 |
+|          118 | Blue Ribbon Sports   |      1003 |
+|          119 | The Triathletes Club |      1003 |
+|          120 | Century Pro Shop     |      1003 |
+|          121 | City Sports          |      1003 |
+|          122 | The Sporting Life    |      1003 |
+|          101 | All Sports Supplies  |      1004 |
+|          102 | Sports Spot          |      1004 |
+|          103 | Phil`s Sports        |      1004 |
+|          104 | Play Ball!           |      1004 |
+|          105 | Los Altos Sports     |      1004 |
+|          106 | Watson & Son         |      1004 |
+|          107 | Athletic Supplies    |      1004 |
+|          108 | Quinn`s Sports       |      1004 |
+|          109 | Sport Stuff          |      1004 |
+|          110 | AA Athletics         |      1004 |
+|          111 | Sports Center        |      1004 |
+|          112 | Runners & Others     |      1004 |
+|          113 | Sportstown           |      1004 |
+|          114 | Sporting Place       |      1004 |
+|          115 | Gold Medal Sports    |      1004 |
+|          116 | Olympic City         |      1004 |
+|          117 | Kids Korner          |      1004 |
+|          118 | Blue Ribbon Sports   |      1004 |
+|          119 | The Triathletes Club |      1004 |
+|          120 | Century Pro Shop     |      1004 |
+|          121 | City Sports          |      1004 |
+|          122 | The Sporting Life    |      1004 |
+|          101 | All Sports Supplies  |      1005 |
+|          102 | Sports Spot          |      1005 |
+|          103 | Phil`s Sports        |      1005 |
+|          104 | Play Ball!           |      1005 |
+|          105 | Los Altos Sports     |      1005 |
+|          106 | Watson & Son         |      1005 |
+|          107 | Athletic Supplies    |      1005 |
+|          108 | Quinn`s Sports       |      1005 |
+|          109 | Sport Stuff          |      1005 |
+|          110 | AA Athletics         |      1005 |
+|          111 | Sports Center        |      1005 |
+|          112 | Runners & Others     |      1005 |
+|          113 | Sportstown           |      1005 |
+|          114 | Sporting Place       |      1005 |
+|          115 | Gold Medal Sports    |      1005 |
+|          116 | Olympic City         |      1005 |
+|          117 | Kids Korner          |      1005 |
+|          118 | Blue Ribbon Sports   |      1005 |
+|          119 | The Triathletes Club |      1005 |
+|          120 | Century Pro Shop     |      1005 |
+|          121 | City Sports          |      1005 |
+|          122 | The Sporting Life    |      1005 |
+|          101 | All Sports Supplies  |      1006 |
+|          102 | Sports Spot          |      1006 |
+|          103 | Phil`s Sports        |      1006 |
+|          104 | Play Ball!           |      1006 |
+|          105 | Los Altos Sports     |      1006 |
+|          106 | Watson & Son         |      1006 |
+|          107 | Athletic Supplies    |      1006 |
+|          108 | Quinn`s Sports       |      1006 |
+|          109 | Sport Stuff          |      1006 |
+|          110 | AA Athletics         |      1006 |
+|          111 | Sports Center        |      1006 |
+|          112 | Runners & Others     |      1006 |
+|          113 | Sportstown           |      1006 |
+|          114 | Sporting Place       |      1006 |
+|          115 | Gold Medal Sports    |      1006 |
+|          116 | Olympic City         |      1006 |
+|          117 | Kids Korner          |      1006 |
+|          118 | Blue Ribbon Sports   |      1006 |
+|          119 | The Triathletes Club |      1006 |
+|          120 | Century Pro Shop     |      1006 |
+|          121 | City Sports          |      1006 |
+|          122 | The Sporting Life    |      1006 |
+|          101 | All Sports Supplies  |      1007 |
+|          102 | Sports Spot          |      1007 |
+|          103 | Phil`s Sports        |      1007 |
+|          104 | Play Ball!           |      1007 |
+|          105 | Los Altos Sports     |      1007 |
+|          106 | Watson & Son         |      1007 |
+|          107 | Athletic Supplies    |      1007 |
+|          108 | Quinn`s Sports       |      1007 |
+|          109 | Sport Stuff          |      1007 |
+|          110 | AA Athletics         |      1007 |
+|          111 | Sports Center        |      1007 |
+|          112 | Runners & Others     |      1007 |
+|          113 | Sportstown           |      1007 |
+|          114 | Sporting Place       |      1007 |
+|          115 | Gold Medal Sports    |      1007 |
+|          116 | Olympic City         |      1007 |
+|          117 | Kids Korner          |      1007 |
+|          118 | Blue Ribbon Sports   |      1007 |
+|          119 | The Triathletes Club |      1007 |
+|          120 | Century Pro Shop     |      1007 |
+|          121 | City Sports          |      1007 |
+|          122 | The Sporting Life    |      1007 |
+|          101 | All Sports Supplies  |      1008 |
+|          102 | Sports Spot          |      1008 |
+|          103 | Phil`s Sports        |      1008 |
+|          104 | Play Ball!           |      1008 |
+|          105 | Los Altos Sports     |      1008 |
+|          106 | Watson & Son         |      1008 |
+|          107 | Athletic Supplies    |      1008 |
+|          108 | Quinn`s Sports       |      1008 |
+|          109 | Sport Stuff          |      1008 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1008 |
+|          112 | Runners & Others     |      1008 |
+|          113 | Sportstown           |      1008 |
+|          114 | Sporting Place       |      1008 |
+|          115 | Gold Medal Sports    |      1008 |
+|          116 | Olympic City         |      1008 |
+|          117 | Kids Korner          |      1008 |
+|          118 | Blue Ribbon Sports   |      1008 |
+|          119 | The Triathletes Club |      1008 |
+|          120 | Century Pro Shop     |      1008 |
+|          121 | City Sports          |      1008 |
+|          122 | The Sporting Life    |      1008 |
+|          101 | All Sports Supplies  |      1009 |
+|          102 | Sports Spot          |      1009 |
+|          103 | Phil`s Sports        |      1009 |
+|          104 | Play Ball!           |      1009 |
+|          105 | Los Altos Sports     |      1009 |
+|          106 | Watson & Son         |      1009 |
+|          107 | Athletic Supplies    |      1009 |
+|          108 | Quinn`s Sports       |      1009 |
+|          109 | Sport Stuff          |      1009 |
+|          110 | AA Athletics         |      1009 |
+|          111 | Sports Center        |      1009 |
+|          112 | Runners & Others     |      1009 |
+|          113 | Sportstown           |      1009 |
+|          114 | Sporting Place       |      1009 |
+|          115 | Gold Medal Sports    |      1009 |
+|          116 | Olympic City         |      1009 |
+|          117 | Kids Korner          |      1009 |
+|          118 | Blue Ribbon Sports   |      1009 |
+|          119 | The Triathletes Club |      1009 |
+|          120 | Century Pro Shop     |      1009 |
+|          121 | City Sports          |      1009 |
+|          122 | The Sporting Life    |      1009 |
+|          101 | All Sports Supplies  |      1010 |
+|          102 | Sports Spot          |      1010 |
+|          103 | Phil`s Sports        |      1010 |
+|          104 | Play Ball!           |      1010 |
+|          105 | Los Altos Sports     |      1010 |
+|          106 | Watson & Son         |      1010 |
+|          107 | Athletic Supplies    |      1010 |
+|          108 | Quinn`s Sports       |      1010 |
+|          109 | Sport Stuff          |      1010 |
+|          110 | AA Athletics         |      1010 |
+|          111 | Sports Center        |      1010 |
+|          112 | Runners & Others     |      1010 |
+|          113 | Sportstown           |      1010 |
+|          114 | Sporting Place       |      1010 |
+|          115 | Gold Medal Sports    |      1010 |
+|          116 | Olympic City         |      1010 |
+|          117 | Kids Korner          |      1010 |
+|          118 | Blue Ribbon Sports   |      1010 |
+|          119 | The Triathletes Club |      1010 |
+|          120 | Century Pro Shop     |      1010 |
+|          121 | City Sports          |      1010 |
+|          122 | The Sporting Life    |      1010 |
+|          101 | All Sports Supplies  |      1011 |
+|          102 | Sports Spot          |      1011 |
+|          103 | Phil`s Sports        |      1011 |
+|          104 | Play Ball!           |      1011 |
+|          105 | Los Altos Sports     |      1011 |
+|          106 | Watson & Son         |      1011 |
+|          107 | Athletic Supplies    |      1011 |
+|          108 | Quinn`s Sports       |      1011 |
+|          109 | Sport Stuff          |      1011 |
+|          110 | AA Athletics         |      1011 |
+|          111 | Sports Center        |      1011 |
+|          112 | Runners & Others     |      1011 |
+|          113 | Sportstown           |      1011 |
+|          114 | Sporting Place       |      1011 |
+|          115 | Gold Medal Sports    |      1011 |
+|          116 | Olympic City         |      1011 |
+|          117 | Kids Korner          |      1011 |
+|          118 | Blue Ribbon Sports   |      1011 |
+|          119 | The Triathletes Club |      1011 |
+|          120 | Century Pro Shop     |      1011 |
+|          121 | City Sports          |      1011 |
+|          122 | The Sporting Life    |      1011 |
+|          101 | All Sports Supplies  |      1012 |
+|          102 | Sports Spot          |      1012 |
+|          103 | Phil`s Sports        |      1012 |
+|          104 | Play Ball!           |      1012 |
+|          105 | Los Altos Sports     |      1012 |
+|          106 | Watson & Son         |      1012 |
+|          107 | Athletic Supplies    |      1012 |
+|          108 | Quinn`s Sports       |      1012 |
+|          109 | Sport Stuff          |      1012 |
+|          110 | AA Athletics         |      1012 |
+|          111 | Sports Center        |      1012 |
+|          112 | Runners & Others     |      1012 |
+|          113 | Sportstown           |      1012 |
+|          114 | Sporting Place       |      1012 |
+|          115 | Gold Medal Sports    |      1012 |
+|          116 | Olympic City         |      1012 |
+|          117 | Kids Korner          |      1012 |
+|          118 | Blue Ribbon Sports   |      1012 |
+|          119 | The Triathletes Club |      1012 |
+|          120 | Century Pro Shop     |      1012 |
+|          121 | City Sports          |      1012 |
+|          122 | The Sporting Life    |      1012 |
+|          101 | All Sports Supplies  |      1013 |
+|          102 | Sports Spot          |      1013 |
+|          103 | Phil`s Sports        |      1013 |
+|          104 | Play Ball!           |      1013 |
+|          105 | Los Altos Sports     |      1013 |
+|          106 | Watson & Son         |      1013 |
+|          107 | Athletic Supplies    |      1013 |
+|          108 | Quinn`s Sports       |      1013 |
+|          109 | Sport Stuff          |      1013 |
+|          110 | AA Athletics         |      1013 |
+|          111 | Sports Center        |      1013 |
+|          112 | Runners & Others     |      1013 |
+|          113 | Sportstown           |      1013 |
+|          114 | Sporting Place       |      1013 |
+|          115 | Gold Medal Sports    |      1013 |
+|          116 | Olympic City         |      1013 |
+|          117 | Kids Korner          |      1013 |
+|          118 | Blue Ribbon Sports   |      1013 |
+|          119 | The Triathletes Club |      1013 |
+|          120 | Century Pro Shop     |      1013 |
+|          121 | City Sports          |      1013 |
+|          122 | The Sporting Life    |      1013 |
+|          101 | All Sports Supplies  |      1014 |
+|          102 | Sports Spot          |      1014 |
+|          103 | Phil`s Sports        |      1014 |
+|          104 | Play Ball!           |      1014 |
+|          105 | Los Altos Sports     |      1014 |
+|          106 | Watson & Son         |      1014 |
+|          107 | Athletic Supplies    |      1014 |
+|          108 | Quinn`s Sports       |      1014 |
+|          109 | Sport Stuff          |      1014 |
+|          110 | AA Athletics         |      1014 |
+|          111 | Sports Center        |      1014 |
+|          112 | Runners & Others     |      1014 |
+|          113 | Sportstown           |      1014 |
+|          114 | Sporting Place       |      1014 |
+|          115 | Gold Medal Sports    |      1014 |
+|          116 | Olympic City         |      1014 |
+|          117 | Kids Korner          |      1014 |
+|          118 | Blue Ribbon Sports   |      1014 |
+|          119 | The Triathletes Club |      1014 |
+|          120 | Century Pro Shop     |      1014 |
+|          121 | City Sports          |      1014 |
+|          122 | The Sporting Life    |      1014 |
+|          101 | All Sports Supplies  |      1015 |
+|          102 | Sports Spot          |      1015 |
+|          103 | Phil`s Sports        |      1015 |
+|          104 | Play Ball!           |      1015 |
+|          105 | Los Altos Sports     |      1015 |
+|          106 | Watson & Son         |      1015 |
+|          107 | Athletic Supplies    |      1015 |
+|          108 | Quinn`s Sports       |      1015 |
+|          109 | Sport Stuff          |      1015 |
+|          110 | AA Athletics         |      1015 |
+|          111 | Sports Center        |      1015 |
+|          112 | Runners & Others     |      1015 |
+|          113 | Sportstown           |      1015 |
+|          114 | Sporting Place       |      1015 |
+|          115 | Gold Medal Sports    |      1015 |
+|          116 | Olympic City         |      1015 |
+|          117 | Kids Korner          |      1015 |
+|          118 | Blue Ribbon Sports   |      1015 |
+|          119 | The Triathletes Club |      1015 |
+|          120 | Century Pro Shop     |      1015 |
+|          121 | City Sports          |      1015 |
+|          122 | The Sporting Life    |      1015 |
+|          101 | All Sports Supplies  |      1016 |
+|          102 | Sports Spot          |      1016 |
+|          103 | Phil`s Sports        |      1016 |
+|          104 | Play Ball!           |      1016 |
+|          105 | Los Altos Sports     |      1016 |
+|          106 | Watson & Son         |      1016 |
+|          107 | Athletic Supplies    |      1016 |
+|          108 | Quinn`s Sports       |      1016 |
+|          109 | Sport Stuff          |      1016 |
+|          110 | AA Athletics         |      1016 |
+|          111 | Sports Center        |      1016 |
+|          112 | Runners & Others     |      1016 |
+|          113 | Sportstown           |      1016 |
+|          114 | Sporting Place       |      1016 |
+|          115 | Gold Medal Sports    |      1016 |
+|          116 | Olympic City         |      1016 |
+|          117 | Kids Korner          |      1016 |
+|          118 | Blue Ribbon Sports   |      1016 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1016 |
+|          121 | City Sports          |      1016 |
+|          122 | The Sporting Life    |      1016 |
+|          101 | All Sports Supplies  |      1017 |
+|          102 | Sports Spot          |      1017 |
+|          103 | Phil`s Sports        |      1017 |
+|          104 | Play Ball!           |      1017 |
+|          105 | Los Altos Sports     |      1017 |
+|          106 | Watson & Son         |      1017 |
+|          107 | Athletic Supplies    |      1017 |
+|          108 | Quinn`s Sports       |      1017 |
+|          109 | Sport Stuff          |      1017 |
+|          110 | AA Athletics         |      1017 |
+|          111 | Sports Center        |      1017 |
+|          112 | Runners & Others     |      1017 |
+|          113 | Sportstown           |      1017 |
+|          114 | Sporting Place       |      1017 |
+|          115 | Gold Medal Sports    |      1017 |
+|          116 | Olympic City         |      1017 |
+|          117 | Kids Korner          |      1017 |
+|          118 | Blue Ribbon Sports   |      1017 |
+|          119 | The Triathletes Club |      1017 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1017 |
+|          122 | The Sporting Life    |      1017 |
+|          101 | All Sports Supplies  |      1018 |
+|          102 | Sports Spot          |      1018 |
+|          103 | Phil`s Sports        |      1018 |
+|          104 | Play Ball!           |      1018 |
+|          105 | Los Altos Sports     |      1018 |
+|          106 | Watson & Son         |      1018 |
+|          107 | Athletic Supplies    |      1018 |
+|          108 | Quinn`s Sports       |      1018 |
+|          109 | Sport Stuff          |      1018 |
+|          110 | AA Athletics         |      1018 |
+|          111 | Sports Center        |      1018 |
+|          112 | Runners & Others     |      1018 |
+|          113 | Sportstown           |      1018 |
+|          114 | Sporting Place       |      1018 |
+|          115 | Gold Medal Sports    |      1018 |
+|          116 | Olympic City         |      1018 |
+|          117 | Kids Korner          |      1018 |
+|          118 | Blue Ribbon Sports   |      1018 |
+|          119 | The Triathletes Club |      1018 |
+|          120 | Century Pro Shop     |      1018 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1018 |
+|          101 | All Sports Supplies  |      1019 |
+|          102 | Sports Spot          |      1019 |
+|          103 | Phil`s Sports        |      1019 |
+|          104 | Play Ball!           |      1019 |
+|          105 | Los Altos Sports     |      1019 |
+|          106 | Watson & Son         |      1019 |
+|          107 | Athletic Supplies    |      1019 |
+|          108 | Quinn`s Sports       |      1019 |
+|          109 | Sport Stuff          |      1019 |
+|          110 | AA Athletics         |      1019 |
+|          111 | Sports Center        |      1019 |
+|          112 | Runners & Others     |      1019 |
+|          113 | Sportstown           |      1019 |
+|          114 | Sporting Place       |      1019 |
+|          115 | Gold Medal Sports    |      1019 |
+|          116 | Olympic City         |      1019 |
+|          117 | Kids Korner          |      1019 |
+|          118 | Blue Ribbon Sports   |      1019 |
+|          119 | The Triathletes Club |      1019 |
+|          120 | Century Pro Shop     |      1019 |
+|          121 | City Sports          |      1019 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+418 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_ORDERS CHANGE COLUMN CUSTOMER_NUM_ CUSTOMER_NUM integer;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c NATURAL JOIN CHUDNOVETS_ORDERS o ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+    -> WHERE c.customer_num = o.customer_num ORDER BY order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.01 sec)
+
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c, CHUDNOVETS_ORDERS o
+    -> ;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          101 | All Sports Supplies  |      1019 |
+|          101 | All Sports Supplies  |      1018 |
+|          101 | All Sports Supplies  |      1017 |
+|          101 | All Sports Supplies  |      1016 |
+|          101 | All Sports Supplies  |      1015 |
+|          101 | All Sports Supplies  |      1014 |
+|          101 | All Sports Supplies  |      1013 |
+|          101 | All Sports Supplies  |      1012 |
+|          101 | All Sports Supplies  |      1011 |
+|          101 | All Sports Supplies  |      1010 |
+|          101 | All Sports Supplies  |      1009 |
+|          101 | All Sports Supplies  |      1008 |
+|          101 | All Sports Supplies  |      1007 |
+|          101 | All Sports Supplies  |      1006 |
+|          101 | All Sports Supplies  |      1005 |
+|          101 | All Sports Supplies  |      1004 |
+|          101 | All Sports Supplies  |      1003 |
+|          101 | All Sports Supplies  |      1002 |
+|          101 | All Sports Supplies  |      1001 |
+|          102 | Sports Spot          |      1019 |
+|          102 | Sports Spot          |      1018 |
+|          102 | Sports Spot          |      1017 |
+|          102 | Sports Spot          |      1016 |
+|          102 | Sports Spot          |      1015 |
+|          102 | Sports Spot          |      1014 |
+|          102 | Sports Spot          |      1013 |
+|          102 | Sports Spot          |      1012 |
+|          102 | Sports Spot          |      1011 |
+|          102 | Sports Spot          |      1010 |
+|          102 | Sports Spot          |      1009 |
+|          102 | Sports Spot          |      1008 |
+|          102 | Sports Spot          |      1007 |
+|          102 | Sports Spot          |      1006 |
+|          102 | Sports Spot          |      1005 |
+|          102 | Sports Spot          |      1004 |
+|          102 | Sports Spot          |      1003 |
+|          102 | Sports Spot          |      1002 |
+|          102 | Sports Spot          |      1001 |
+|          103 | Phil`s Sports        |      1019 |
+|          103 | Phil`s Sports        |      1018 |
+|          103 | Phil`s Sports        |      1017 |
+|          103 | Phil`s Sports        |      1016 |
+|          103 | Phil`s Sports        |      1015 |
+|          103 | Phil`s Sports        |      1014 |
+|          103 | Phil`s Sports        |      1013 |
+|          103 | Phil`s Sports        |      1012 |
+|          103 | Phil`s Sports        |      1011 |
+|          103 | Phil`s Sports        |      1010 |
+|          103 | Phil`s Sports        |      1009 |
+|          103 | Phil`s Sports        |      1008 |
+|          103 | Phil`s Sports        |      1007 |
+|          103 | Phil`s Sports        |      1006 |
+|          103 | Phil`s Sports        |      1005 |
+|          103 | Phil`s Sports        |      1004 |
+|          103 | Phil`s Sports        |      1003 |
+|          103 | Phil`s Sports        |      1002 |
+|          103 | Phil`s Sports        |      1001 |
+|          104 | Play Ball!           |      1019 |
+|          104 | Play Ball!           |      1018 |
+|          104 | Play Ball!           |      1017 |
+|          104 | Play Ball!           |      1016 |
+|          104 | Play Ball!           |      1015 |
+|          104 | Play Ball!           |      1014 |
+|          104 | Play Ball!           |      1013 |
+|          104 | Play Ball!           |      1012 |
+|          104 | Play Ball!           |      1011 |
+|          104 | Play Ball!           |      1010 |
+|          104 | Play Ball!           |      1009 |
+|          104 | Play Ball!           |      1008 |
+|          104 | Play Ball!           |      1007 |
+|          104 | Play Ball!           |      1006 |
+|          104 | Play Ball!           |      1005 |
+|          104 | Play Ball!           |      1004 |
+|          104 | Play Ball!           |      1003 |
+|          104 | Play Ball!           |      1002 |
+|          104 | Play Ball!           |      1001 |
+|          105 | Los Altos Sports     |      1019 |
+|          105 | Los Altos Sports     |      1018 |
+|          105 | Los Altos Sports     |      1017 |
+|          105 | Los Altos Sports     |      1016 |
+|          105 | Los Altos Sports     |      1015 |
+|          105 | Los Altos Sports     |      1014 |
+|          105 | Los Altos Sports     |      1013 |
+|          105 | Los Altos Sports     |      1012 |
+|          105 | Los Altos Sports     |      1011 |
+|          105 | Los Altos Sports     |      1010 |
+|          105 | Los Altos Sports     |      1009 |
+|          105 | Los Altos Sports     |      1008 |
+|          105 | Los Altos Sports     |      1007 |
+|          105 | Los Altos Sports     |      1006 |
+|          105 | Los Altos Sports     |      1005 |
+|          105 | Los Altos Sports     |      1004 |
+|          105 | Los Altos Sports     |      1003 |
+|          105 | Los Altos Sports     |      1002 |
+|          105 | Los Altos Sports     |      1001 |
+|          106 | Watson & Son         |      1019 |
+|          106 | Watson & Son         |      1018 |
+|          106 | Watson & Son         |      1017 |
+|          106 | Watson & Son         |      1016 |
+|          106 | Watson & Son         |      1015 |
+|          106 | Watson & Son         |      1014 |
+|          106 | Watson & Son         |      1013 |
+|          106 | Watson & Son         |      1012 |
+|          106 | Watson & Son         |      1011 |
+|          106 | Watson & Son         |      1010 |
+|          106 | Watson & Son         |      1009 |
+|          106 | Watson & Son         |      1008 |
+|          106 | Watson & Son         |      1007 |
+|          106 | Watson & Son         |      1006 |
+|          106 | Watson & Son         |      1005 |
+|          106 | Watson & Son         |      1004 |
+|          106 | Watson & Son         |      1003 |
+|          106 | Watson & Son         |      1002 |
+|          106 | Watson & Son         |      1001 |
+|          107 | Athletic Supplies    |      1019 |
+|          107 | Athletic Supplies    |      1018 |
+|          107 | Athletic Supplies    |      1017 |
+|          107 | Athletic Supplies    |      1016 |
+|          107 | Athletic Supplies    |      1015 |
+|          107 | Athletic Supplies    |      1014 |
+|          107 | Athletic Supplies    |      1013 |
+|          107 | Athletic Supplies    |      1012 |
+|          107 | Athletic Supplies    |      1011 |
+|          107 | Athletic Supplies    |      1010 |
+|          107 | Athletic Supplies    |      1009 |
+|          107 | Athletic Supplies    |      1008 |
+|          107 | Athletic Supplies    |      1007 |
+|          107 | Athletic Supplies    |      1006 |
+|          107 | Athletic Supplies    |      1005 |
+|          107 | Athletic Supplies    |      1004 |
+|          107 | Athletic Supplies    |      1003 |
+|          107 | Athletic Supplies    |      1002 |
+|          107 | Athletic Supplies    |      1001 |
+|          108 | Quinn`s Sports       |      1019 |
+|          108 | Quinn`s Sports       |      1018 |
+|          108 | Quinn`s Sports       |      1017 |
+|          108 | Quinn`s Sports       |      1016 |
+|          108 | Quinn`s Sports       |      1015 |
+|          108 | Quinn`s Sports       |      1014 |
+|          108 | Quinn`s Sports       |      1013 |
+|          108 | Quinn`s Sports       |      1012 |
+|          108 | Quinn`s Sports       |      1011 |
+|          108 | Quinn`s Sports       |      1010 |
+|          108 | Quinn`s Sports       |      1009 |
+|          108 | Quinn`s Sports       |      1008 |
+|          108 | Quinn`s Sports       |      1007 |
+|          108 | Quinn`s Sports       |      1006 |
+|          108 | Quinn`s Sports       |      1005 |
+|          108 | Quinn`s Sports       |      1004 |
+|          108 | Quinn`s Sports       |      1003 |
+|          108 | Quinn`s Sports       |      1002 |
+|          108 | Quinn`s Sports       |      1001 |
+|          109 | Sport Stuff          |      1019 |
+|          109 | Sport Stuff          |      1018 |
+|          109 | Sport Stuff          |      1017 |
+|          109 | Sport Stuff          |      1016 |
+|          109 | Sport Stuff          |      1015 |
+|          109 | Sport Stuff          |      1014 |
+|          109 | Sport Stuff          |      1013 |
+|          109 | Sport Stuff          |      1012 |
+|          109 | Sport Stuff          |      1011 |
+|          109 | Sport Stuff          |      1010 |
+|          109 | Sport Stuff          |      1009 |
+|          109 | Sport Stuff          |      1008 |
+|          109 | Sport Stuff          |      1007 |
+|          109 | Sport Stuff          |      1006 |
+|          109 | Sport Stuff          |      1005 |
+|          109 | Sport Stuff          |      1004 |
+|          109 | Sport Stuff          |      1003 |
+|          109 | Sport Stuff          |      1002 |
+|          109 | Sport Stuff          |      1001 |
+|          110 | AA Athletics         |      1019 |
+|          110 | AA Athletics         |      1018 |
+|          110 | AA Athletics         |      1017 |
+|          110 | AA Athletics         |      1016 |
+|          110 | AA Athletics         |      1015 |
+|          110 | AA Athletics         |      1014 |
+|          110 | AA Athletics         |      1013 |
+|          110 | AA Athletics         |      1012 |
+|          110 | AA Athletics         |      1011 |
+|          110 | AA Athletics         |      1010 |
+|          110 | AA Athletics         |      1009 |
+|          110 | AA Athletics         |      1008 |
+|          110 | AA Athletics         |      1007 |
+|          110 | AA Athletics         |      1006 |
+|          110 | AA Athletics         |      1005 |
+|          110 | AA Athletics         |      1004 |
+|          110 | AA Athletics         |      1003 |
+|          110 | AA Athletics         |      1002 |
+|          110 | AA Athletics         |      1001 |
+|          111 | Sports Center        |      1019 |
+|          111 | Sports Center        |      1018 |
+|          111 | Sports Center        |      1017 |
+|          111 | Sports Center        |      1016 |
+|          111 | Sports Center        |      1015 |
+|          111 | Sports Center        |      1014 |
+|          111 | Sports Center        |      1013 |
+|          111 | Sports Center        |      1012 |
+|          111 | Sports Center        |      1011 |
+|          111 | Sports Center        |      1010 |
+|          111 | Sports Center        |      1009 |
+|          111 | Sports Center        |      1008 |
+|          111 | Sports Center        |      1007 |
+|          111 | Sports Center        |      1006 |
+|          111 | Sports Center        |      1005 |
+|          111 | Sports Center        |      1004 |
+|          111 | Sports Center        |      1003 |
+|          111 | Sports Center        |      1002 |
+|          111 | Sports Center        |      1001 |
+|          112 | Runners & Others     |      1019 |
+|          112 | Runners & Others     |      1018 |
+|          112 | Runners & Others     |      1017 |
+|          112 | Runners & Others     |      1016 |
+|          112 | Runners & Others     |      1015 |
+|          112 | Runners & Others     |      1014 |
+|          112 | Runners & Others     |      1013 |
+|          112 | Runners & Others     |      1012 |
+|          112 | Runners & Others     |      1011 |
+|          112 | Runners & Others     |      1010 |
+|          112 | Runners & Others     |      1009 |
+|          112 | Runners & Others     |      1008 |
+|          112 | Runners & Others     |      1007 |
+|          112 | Runners & Others     |      1006 |
+|          112 | Runners & Others     |      1005 |
+|          112 | Runners & Others     |      1004 |
+|          112 | Runners & Others     |      1003 |
+|          112 | Runners & Others     |      1002 |
+|          112 | Runners & Others     |      1001 |
+|          113 | Sportstown           |      1019 |
+|          113 | Sportstown           |      1018 |
+|          113 | Sportstown           |      1017 |
+|          113 | Sportstown           |      1016 |
+|          113 | Sportstown           |      1015 |
+|          113 | Sportstown           |      1014 |
+|          113 | Sportstown           |      1013 |
+|          113 | Sportstown           |      1012 |
+|          113 | Sportstown           |      1011 |
+|          113 | Sportstown           |      1010 |
+|          113 | Sportstown           |      1009 |
+|          113 | Sportstown           |      1008 |
+|          113 | Sportstown           |      1007 |
+|          113 | Sportstown           |      1006 |
+|          113 | Sportstown           |      1005 |
+|          113 | Sportstown           |      1004 |
+|          113 | Sportstown           |      1003 |
+|          113 | Sportstown           |      1002 |
+|          113 | Sportstown           |      1001 |
+|          114 | Sporting Place       |      1019 |
+|          114 | Sporting Place       |      1018 |
+|          114 | Sporting Place       |      1017 |
+|          114 | Sporting Place       |      1016 |
+|          114 | Sporting Place       |      1015 |
+|          114 | Sporting Place       |      1014 |
+|          114 | Sporting Place       |      1013 |
+|          114 | Sporting Place       |      1012 |
+|          114 | Sporting Place       |      1011 |
+|          114 | Sporting Place       |      1010 |
+|          114 | Sporting Place       |      1009 |
+|          114 | Sporting Place       |      1008 |
+|          114 | Sporting Place       |      1007 |
+|          114 | Sporting Place       |      1006 |
+|          114 | Sporting Place       |      1005 |
+|          114 | Sporting Place       |      1004 |
+|          114 | Sporting Place       |      1003 |
+|          114 | Sporting Place       |      1002 |
+|          114 | Sporting Place       |      1001 |
+|          115 | Gold Medal Sports    |      1019 |
+|          115 | Gold Medal Sports    |      1018 |
+|          115 | Gold Medal Sports    |      1017 |
+|          115 | Gold Medal Sports    |      1016 |
+|          115 | Gold Medal Sports    |      1015 |
+|          115 | Gold Medal Sports    |      1014 |
+|          115 | Gold Medal Sports    |      1013 |
+|          115 | Gold Medal Sports    |      1012 |
+|          115 | Gold Medal Sports    |      1011 |
+|          115 | Gold Medal Sports    |      1010 |
+|          115 | Gold Medal Sports    |      1009 |
+|          115 | Gold Medal Sports    |      1008 |
+|          115 | Gold Medal Sports    |      1007 |
+|          115 | Gold Medal Sports    |      1006 |
+|          115 | Gold Medal Sports    |      1005 |
+|          115 | Gold Medal Sports    |      1004 |
+|          115 | Gold Medal Sports    |      1003 |
+|          115 | Gold Medal Sports    |      1002 |
+|          115 | Gold Medal Sports    |      1001 |
+|          116 | Olympic City         |      1019 |
+|          116 | Olympic City         |      1018 |
+|          116 | Olympic City         |      1017 |
+|          116 | Olympic City         |      1016 |
+|          116 | Olympic City         |      1015 |
+|          116 | Olympic City         |      1014 |
+|          116 | Olympic City         |      1013 |
+|          116 | Olympic City         |      1012 |
+|          116 | Olympic City         |      1011 |
+|          116 | Olympic City         |      1010 |
+|          116 | Olympic City         |      1009 |
+|          116 | Olympic City         |      1008 |
+|          116 | Olympic City         |      1007 |
+|          116 | Olympic City         |      1006 |
+|          116 | Olympic City         |      1005 |
+|          116 | Olympic City         |      1004 |
+|          116 | Olympic City         |      1003 |
+|          116 | Olympic City         |      1002 |
+|          116 | Olympic City         |      1001 |
+|          117 | Kids Korner          |      1019 |
+|          117 | Kids Korner          |      1018 |
+|          117 | Kids Korner          |      1017 |
+|          117 | Kids Korner          |      1016 |
+|          117 | Kids Korner          |      1015 |
+|          117 | Kids Korner          |      1014 |
+|          117 | Kids Korner          |      1013 |
+|          117 | Kids Korner          |      1012 |
+|          117 | Kids Korner          |      1011 |
+|          117 | Kids Korner          |      1010 |
+|          117 | Kids Korner          |      1009 |
+|          117 | Kids Korner          |      1008 |
+|          117 | Kids Korner          |      1007 |
+|          117 | Kids Korner          |      1006 |
+|          117 | Kids Korner          |      1005 |
+|          117 | Kids Korner          |      1004 |
+|          117 | Kids Korner          |      1003 |
+|          117 | Kids Korner          |      1002 |
+|          117 | Kids Korner          |      1001 |
+|          118 | Blue Ribbon Sports   |      1019 |
+|          118 | Blue Ribbon Sports   |      1018 |
+|          118 | Blue Ribbon Sports   |      1017 |
+|          118 | Blue Ribbon Sports   |      1016 |
+|          118 | Blue Ribbon Sports   |      1015 |
+|          118 | Blue Ribbon Sports   |      1014 |
+|          118 | Blue Ribbon Sports   |      1013 |
+|          118 | Blue Ribbon Sports   |      1012 |
+|          118 | Blue Ribbon Sports   |      1011 |
+|          118 | Blue Ribbon Sports   |      1010 |
+|          118 | Blue Ribbon Sports   |      1009 |
+|          118 | Blue Ribbon Sports   |      1008 |
+|          118 | Blue Ribbon Sports   |      1007 |
+|          118 | Blue Ribbon Sports   |      1006 |
+|          118 | Blue Ribbon Sports   |      1005 |
+|          118 | Blue Ribbon Sports   |      1004 |
+|          118 | Blue Ribbon Sports   |      1003 |
+|          118 | Blue Ribbon Sports   |      1002 |
+|          118 | Blue Ribbon Sports   |      1001 |
+|          119 | The Triathletes Club |      1019 |
+|          119 | The Triathletes Club |      1018 |
+|          119 | The Triathletes Club |      1017 |
+|          119 | The Triathletes Club |      1016 |
+|          119 | The Triathletes Club |      1015 |
+|          119 | The Triathletes Club |      1014 |
+|          119 | The Triathletes Club |      1013 |
+|          119 | The Triathletes Club |      1012 |
+|          119 | The Triathletes Club |      1011 |
+|          119 | The Triathletes Club |      1010 |
+|          119 | The Triathletes Club |      1009 |
+|          119 | The Triathletes Club |      1008 |
+|          119 | The Triathletes Club |      1007 |
+|          119 | The Triathletes Club |      1006 |
+|          119 | The Triathletes Club |      1005 |
+|          119 | The Triathletes Club |      1004 |
+|          119 | The Triathletes Club |      1003 |
+|          119 | The Triathletes Club |      1002 |
+|          119 | The Triathletes Club |      1001 |
+|          120 | Century Pro Shop     |      1019 |
+|          120 | Century Pro Shop     |      1018 |
+|          120 | Century Pro Shop     |      1017 |
+|          120 | Century Pro Shop     |      1016 |
+|          120 | Century Pro Shop     |      1015 |
+|          120 | Century Pro Shop     |      1014 |
+|          120 | Century Pro Shop     |      1013 |
+|          120 | Century Pro Shop     |      1012 |
+|          120 | Century Pro Shop     |      1011 |
+|          120 | Century Pro Shop     |      1010 |
+|          120 | Century Pro Shop     |      1009 |
+|          120 | Century Pro Shop     |      1008 |
+|          120 | Century Pro Shop     |      1007 |
+|          120 | Century Pro Shop     |      1006 |
+|          120 | Century Pro Shop     |      1005 |
+|          120 | Century Pro Shop     |      1004 |
+|          120 | Century Pro Shop     |      1003 |
+|          120 | Century Pro Shop     |      1002 |
+|          120 | Century Pro Shop     |      1001 |
+|          121 | City Sports          |      1019 |
+|          121 | City Sports          |      1018 |
+|          121 | City Sports          |      1017 |
+|          121 | City Sports          |      1016 |
+|          121 | City Sports          |      1015 |
+|          121 | City Sports          |      1014 |
+|          121 | City Sports          |      1013 |
+|          121 | City Sports          |      1012 |
+|          121 | City Sports          |      1011 |
+|          121 | City Sports          |      1010 |
+|          121 | City Sports          |      1009 |
+|          121 | City Sports          |      1008 |
+|          121 | City Sports          |      1007 |
+|          121 | City Sports          |      1006 |
+|          121 | City Sports          |      1005 |
+|          121 | City Sports          |      1004 |
+|          121 | City Sports          |      1003 |
+|          121 | City Sports          |      1002 |
+|          121 | City Sports          |      1001 |
+|          122 | The Sporting Life    |      1019 |
+|          122 | The Sporting Life    |      1018 |
+|          122 | The Sporting Life    |      1017 |
+|          122 | The Sporting Life    |      1016 |
+|          122 | The Sporting Life    |      1015 |
+|          122 | The Sporting Life    |      1014 |
+|          122 | The Sporting Life    |      1013 |
+|          122 | The Sporting Life    |      1012 |
+|          122 | The Sporting Life    |      1011 |
+|          122 | The Sporting Life    |      1010 |
+|          122 | The Sporting Life    |      1009 |
+|          122 | The Sporting Life    |      1008 |
+|          122 | The Sporting Life    |      1007 |
+|          122 | The Sporting Life    |      1006 |
+|          122 | The Sporting Life    |      1005 |
+|          122 | The Sporting Life    |      1004 |
+|          122 | The Sporting Life    |      1003 |
+|          122 | The Sporting Life    |      1002 |
+|          122 | The Sporting Life    |      1001 |
++--------------+----------------------+-----------+
+418 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c
+    -> ;
+ERROR 1054 (42S22): Unknown column 'order_num' in 'field list'
+mysql> SELECT c.customer_num, company FROM CHUDNOVETS_CUSTOMER c
+    -> ;
++--------------+----------------------+
+| customer_num | company              |
++--------------+----------------------+
+|          101 | All Sports Supplies  |
+|          102 | Sports Spot          |
+|          103 | Phil`s Sports        |
+|          104 | Play Ball!           |
+|          105 | Los Altos Sports     |
+|          106 | Watson & Son         |
+|          107 | Athletic Supplies    |
+|          108 | Quinn`s Sports       |
+|          109 | Sport Stuff          |
+|          110 | AA Athletics         |
+|          111 | Sports Center        |
+|          112 | Runners & Others     |
+|          113 | Sportstown           |
+|          114 | Sporting Place       |
+|          115 | Gold Medal Sports    |
+|          116 | Olympic City         |
+|          117 | Kids Korner          |
+|          118 | Blue Ribbon Sports   |
+|          119 | The Triathletes Club |
+|          120 | Century Pro Shop     |
+|          121 | City Sports          |
+|          122 | The Sporting Life    |
++--------------+----------------------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT order_num FROM CHUDNOVETS_ORDERS o
+    -> ;
++-----------+
+| order_num |
++-----------+
+|      1001 |
+|      1002 |
+|      1003 |
+|      1004 |
+|      1005 |
+|      1006 |
+|      1007 |
+|      1008 |
+|      1009 |
+|      1010 |
+|      1011 |
+|      1012 |
+|      1013 |
+|      1014 |
+|      1015 |
+|      1016 |
+|      1017 |
+|      1018 |
+|      1019 |
++-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num ORDER BY order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, company, order_num FROM CHUDNOVETS_CUSTOMER c NATURAL JOIN CHUDNOVETS_ORDERS o ORDER BY order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT c.customer_num, c.company, o.order_num FROM CHUDNOVETS_CUSTOMER c INNER JOIN CHUDNOVETS_ORDERS o ON c.customer_num = o.customer_num ORDER BY o.order_num;
++--------------+----------------------+-----------+
+| customer_num | company              | order_num |
++--------------+----------------------+-----------+
+|          104 | Play Ball!           |      1001 |
+|          101 | All Sports Supplies  |      1002 |
+|          104 | Play Ball!           |      1003 |
+|          106 | Watson & Son         |      1004 |
+|          116 | Olympic City         |      1005 |
+|          112 | Runners & Others     |      1006 |
+|          117 | Kids Korner          |      1007 |
+|          110 | AA Athletics         |      1008 |
+|          111 | Sports Center        |      1009 |
+|          115 | Gold Medal Sports    |      1010 |
+|          104 | Play Ball!           |      1011 |
+|          117 | Kids Korner          |      1012 |
+|          104 | Play Ball!           |      1013 |
+|          106 | Watson & Son         |      1014 |
+|          110 | AA Athletics         |      1015 |
+|          119 | The Triathletes Club |      1016 |
+|          120 | Century Pro Shop     |      1017 |
+|          121 | City Sports          |      1018 |
+|          122 | The Sporting Life    |      1019 |
++--------------+----------------------+-----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT CHUDNOVETS_ITEMS.order_num, CHUDNOVETS_ITEMS.item_num, CHUDNOVETS_STOCK.description, CHUDNOVETS_STOCK.manu_code, CHUDNOVETS_ITEMS.total_price 
+    -> FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK
+    -> WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.order_num=1004;
++-----------+----------+-----------------+-----------+-------------+
+| order_num | item_num | description     | manu_code | total_price |
++-----------+----------+-----------------+-----------+-------------+
+|      1004 |        4 | baseball gloves | HRO       |      800.00 |
+|      1004 |        1 | baseball gloves | HRO       |      250.00 |
+|      1004 |        4 | baseball gloves | HSK       |      800.00 |
+|      1004 |        1 | baseball gloves | HSK       |      250.00 |
+|      1004 |        4 | baseball gloves | SMT       |      800.00 |
+|      1004 |        1 | baseball gloves | SMT       |      250.00 |
+|      1004 |        2 | baseball        | HRO       |      126.00 |
+|      1004 |        3 | baseball bat    | HSK       |      240.00 |
+|      1004 |        3 | baseball bat    | SHM       |      240.00 |
++-----------+----------+-----------------+-----------+-------------+
+9 rows in set (0.01 sec)
+
+mysql> SHOW ENGINES;
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
+| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
+| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | UNIT_DESCR     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
++-----------+-----------+-----------------+------------+------+----------------+
+74 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS ORDER BY order_num;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS ORDER BY item_num;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS WHERE item_num=1 ORDER BY item_num;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
++----------+-----------+-----------+-----------+----------+-------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS WHERE item_num=2 ORDER BY item_num;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ORDERS;
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM | SHIP_INSTRUCT                        | PO_NUM   | SHIP_DATE  | SHIP_WEIGHT | SHIP_CHARGE | PAID_DATE  |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+|      1001 | 1994-05-20 |          104 | express                              | B77836   | 1994-06-01 |       20.40 |       10.00 | 1994-07-22 |
+|      1002 | 1994-05-21 |          101 | PO on box; deliver to back door only | 9270     | 1994-05-26 |       50.60 |       15.30 | 1994-06-03 |
+|      1003 | 1994-05-22 |          104 | express                              | B77890   | 1994-05-23 |       35.60 |       10.80 | 1994-06-14 |
+|      1004 | 1994-05-22 |          106 | ring bell twice                      | 8006     | 1994-05-30 |       95.80 |       19.20 | NULL       |
+|      1005 | 1994-05-24 |          116 | call before delivery                 | 2865     | 1994-06-09 |       80.80 |       16.20 | 1994-06-21 |
+|      1006 | 1994-05-30 |          112 | after 10 am                          | Q13557   | NULL       |       70.80 |       14.20 | NULL       |
+|      1007 | 1994-05-31 |          117 | NULL                                 | 278693   | 1994-06-05 |      125.90 |       25.20 | NULL       |
+|      1008 | 1994-06-07 |          110 | closed Monday                        | LZ230    | 1994-07-06 |       45.60 |       13.80 | 1994-07-21 |
+|      1009 | 1994-06-14 |          111 | next door to grocery                 | 4745     | 1994-06-21 |       20.40 |       10.00 | 1994-08-21 |
+|      1010 | 1994-06-17 |          115 | deliver 776 King St. if no answer    | 429Q     | 1994-06-29 |       40.60 |       12.30 | 1994-08-22 |
+|      1011 | 1994-06-18 |          104 | express                              | B77897   | 1994-07-03 |       10.40 |        5.00 | 1994-08-29 |
+|      1012 | 1994-06-18 |          117 | NULL                                 | 278701   | 1994-06-29 |       70.80 |       14.20 | NULL       |
+|      1013 | 1994-06-22 |          104 | express                              | B77930   | 1994-07-10 |       60.80 |       12.20 | 1994-07-31 |
+|      1014 | 1994-06-25 |          106 | ring bell, kick door loudly          | 8052     | 1994-07-03 |       40.60 |       12.30 | 1994-07-10 |
+|      1015 | 1994-06-27 |          110 | closed Mondays                       | MA003    | 1994-07-16 |       20.60 |        6.30 | 1994-08-31 |
+|      1016 | 1994-06-29 |          119 | delivery entrance off Camp St.       | PC6782   | 1994-07-12 |       35.00 |       11.80 | NULL       |
+|      1017 | 1994-07-09 |          120 | North side of clubhouse              | DM354331 | 1994-07-13 |       60.00 |       18.00 | NULL       |
+|      1018 | 1994-07-10 |          121 | SW corner of Biltmore Mall           | S22942   | 1994-07-13 |       70.50 |       20.00 | 1994-08-06 |
+|      1019 | 1994-07-11 |          122 | closed til noon Mondays              | Z55709   | 1994-07-16 |       90.00 |       23.00 | 1994-08-06 |
++-----------+------------+--------------+--------------------------------------+----------+------------+-------------+-------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT CHUDNOVETS_ITEMS.order_num, CHUDNOVETS_ITEMS.item_num, CHUDNOVETS_STOCK.description, CHUDNOVETS_STOCK.manu_code, CHUDNOVETS_ITEMS.total_price 
+    -> FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK
+    -> WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.order_num=1004;
++-----------+----------+-----------------+-----------+-------------+
+| order_num | item_num | description     | manu_code | total_price |
++-----------+----------+-----------------+-----------+-------------+
+|      1004 |        4 | baseball gloves | HRO       |      800.00 |
+|      1004 |        1 | baseball gloves | HRO       |      250.00 |
+|      1004 |        4 | baseball gloves | HSK       |      800.00 |
+|      1004 |        1 | baseball gloves | HSK       |      250.00 |
+|      1004 |        4 | baseball gloves | SMT       |      800.00 |
+|      1004 |        1 | baseball gloves | SMT       |      250.00 |
+|      1004 |        2 | baseball        | HRO       |      126.00 |
+|      1004 |        3 | baseball bat    | HSK       |      240.00 |
+|      1004 |        3 | baseball bat    | SHM       |      240.00 |
++-----------+----------+-----------------+-----------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT order_num, item_num, description, CHUDNOVETS_STOCK.manu_code, total_price 
+    -> FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK
+    -> WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_STOCK.manu_code
+    -> AND order_num=1004;
++-----------+----------+-----------------+-----------+-------------+
+| order_num | item_num | description     | manu_code | total_price |
++-----------+----------+-----------------+-----------+-------------+
+|      1004 |        1 | baseball gloves | HRO       |      250.00 |
+|      1004 |        4 | baseball gloves | HSK       |      800.00 |
+|      1004 |        2 | baseball        | HRO       |      126.00 |
+|      1004 |        3 | baseball bat    | HSK       |      240.00 |
++-----------+----------+-----------------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT order_num, item_num, description, CHUDNOVETS_STOCK.manu_code, total_price 
+    -> FROM CHUDNOVETS_ITEMS NATURAL JOIN CHUDNOVETS_STOCK
+    -> WHERE order_num=1004;
++-----------+----------+-----------------+-----------+-------------+
+| order_num | item_num | description     | manu_code | total_price |
++-----------+----------+-----------------+-----------+-------------+
+|      1004 |        1 | baseball gloves | HRO       |      250.00 |
+|      1004 |        4 | baseball gloves | HSK       |      800.00 |
+|      1004 |        2 | baseball        | HRO       |      126.00 |
+|      1004 |        3 | baseball bat    | HSK       |      240.00 |
++-----------+----------+-----------------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_MANUFACT;
++-----------+-----------+-----------+
+| manu_code | manu_name | LEAD_TIME |
++-----------+-----------+-----------+
+| ANZ       | Anza      |         5 |
+| HRO       | Hero      |         4 |
+| HSK       | Husky     |         5 |
+| KAR       | Karsten   |        21 |
+| NKL       | Nikolus   |         8 |
+| NRG       | Norge     |         7 |
+| PRC       | ProCycle  |         9 |
+| SHM       | Shimara   |        30 |
+| SMT       | Smith     |         3 |
++-----------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT order_num, item_num, description, manu_name, total_price 
+    -> FROM CHUDNOVETS_ITEMS, CHUDNOVETS_STOCK, CHUDNOVETS_MANUFACT
+    -> WHERE CHUDNOVETS_ITEMS.stock_num = CHUDNOVETS_STOCK.stock_num AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_STOCK.manu_code AND CHUDNOVETS_ITEMS.manu_code = CHUDNOVETS_MANUFACT.manu_code
+    -> AND CHUDNOVETS_ITEMS.order_num=1004;
++-----------+----------+-----------------+-----------+-------------+
+| order_num | item_num | description     | manu_name | total_price |
++-----------+----------+-----------------+-----------+-------------+
+|      1004 |        1 | baseball gloves | Hero      |      250.00 |
+|      1004 |        4 | baseball gloves | Husky     |      800.00 |
+|      1004 |        2 | baseball        | Hero      |      126.00 |
+|      1004 |        3 | baseball bat    | Husky     |      240.00 |
++-----------+----------+-----------------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | UNIT_DESCR     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
++-----------+-----------+-----------------+------------+------+----------------+
+74 rows in set (0.00 sec)
+
+mysql> INSERT INTO CHUDNOVETS_STOCK (stock_num, manu_code, description, unit_price) VALUES (11, 'SMT', 'ski goggles', 10.0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | UNIT_DESCR     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
+|        11 | SMT       | ski goggles     |      10.00 | NULL | NULL           |
++-----------+-----------+-----------------+------------+------+----------------+
+75 rows in set (0.00 sec)
+
+mysql> DELETE * FROM CHUDNOVETS_STOCK WHERE stock_num = 11;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM CHUDNOVETS_STOCK WHERE stock_num = 11' at line 1
+mysql> DELETE FROM CHUDNOVETS_STOCK WHERE stock_num = 11;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | UNIT_DESCR     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
++-----------+-----------+-----------------+------------+------+----------------+
+74 rows in set (0.00 sec)
+
+mysql> INSERT INTO CHUDNOVETS_STOCK (stock_num, manu_code, description, unit_price) VALUES (11, 'SMT', 'ski goggles', 10.0);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | UNIT_DESCR     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
+|        11 | SMT       | ski goggles     |      10.00 | NULL | NULL           |
++-----------+-----------+-----------------+------------+------+----------------+
+75 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS CHUDNOVETS_STOCK;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHUDNOVETS_STOCK' at line 1
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STOCK;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| STOCK_NUM   | smallint     | NO   |     | NULL    |       |
+| MANU_CODE   | char(3)      | NO   |     | NULL    |       |
+| DESCRIPTION | char(15)     | YES  |     | NULL    |       |
+| UNIT_PRICE  | decimal(8,2) | YES  |     | NULL    |       |
+| UNIT        | char(4)      | YES  |     | NULL    |       |
+| UNIT_DESCR  | char(15)     | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
++-----------+-----------+-------------+------------+------+------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION | UNIT_PRICE | UNIT | UNIT_DESCR |
++-----------+-----------+-------------+------------+------+------------+
+|        11 | SMT       | ski goggles |      10.00 | NULL | NULL       |
++-----------+-----------+-------------+------------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE CHUDNOVETS_STOCK
+    -> SET unit_price = 85.0,
+    -> unit = 'case',
+    -> unit_descr = '10 goggless/case'
+    -> WHERE stock_num = 11 AND manu_code = 'SMT';
+ERROR 1406 (22001): Data too long for column 'UNIT_DESCR' at row 75
+mysql> UPDATE CHUDNOVETS_STOCK SET unit_price = 85.0, unit = 'case', unit_descr = '10 goggless/case' WHERE stock_num = 11 AND manu_code = 'SMT';
+ERROR 1406 (22001): Data too long for column 'UNIT_DESCR' at row 75
+mysql> UPDATE CHUDNOVETS_STOCK SET unit_price = 85.0, unit = 'case', unit_descr = '10 goggless/case' WHERE stock_num = 11 AND manu_code = 'SMT';
+ERROR 1406 (22001): Data too long for column 'UNIT_DESCR' at row 75
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STOCK;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| STOCK_NUM   | smallint     | NO   |     | NULL    |       |
+| MANU_CODE   | char(3)      | NO   |     | NULL    |       |
+| DESCRIPTION | char(15)     | YES  |     | NULL    |       |
+| UNIT_PRICE  | decimal(8,2) | YES  |     | NULL    |       |
+| UNIT        | char(4)      | YES  |     | NULL    |       |
+| UNIT_DESCR  | char(15)     | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_STOCK ALTER COLUMN unit_descr TYPE CHAR(80);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TYPE CHAR(80)' at line 1
+mysql> ALTER TABLE CHUDNOVETS_STOCK CHANGE COLUMN unit_descr unit_descr CHAR(80);
+Query OK, 75 rows affected (0.06 sec)
+Records: 75  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STOCK;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| STOCK_NUM   | smallint     | NO   |     | NULL    |       |
+| MANU_CODE   | char(3)      | NO   |     | NULL    |       |
+| DESCRIPTION | char(15)     | YES  |     | NULL    |       |
+| UNIT_PRICE  | decimal(8,2) | YES  |     | NULL    |       |
+| UNIT        | char(4)      | YES  |     | NULL    |       |
+| unit_descr  | char(80)     | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
++-----------+-----------+-------------+------------+------+------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION | UNIT_PRICE | UNIT | unit_descr |
++-----------+-----------+-------------+------------+------+------------+
+|        11 | SMT       | ski goggles |      10.00 | NULL | NULL       |
++-----------+-----------+-------------+------------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE CHUDNOVETS_STOCK
+    -> SET unit_price = 85.0,
+    -> unit = 'case',
+    -> unit_descr = '10 goggless/case'
+    -> WHERE stock_num = 11 AND manu_code = 'SMT';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
++-----------+-----------+-------------+------------+------+------------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION | UNIT_PRICE | UNIT | unit_descr       |
++-----------+-----------+-------------+------------+------+------------------+
+|        11 | SMT       | ski goggles |      85.00 | case | 10 goggless/case |
++-----------+-----------+-------------+------------+------+------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+------------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | unit_descr       |
++-----------+-----------+-----------------+------------+------+------------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case   |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case   |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case   |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case          |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case          |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case          |
+|         4 | HRO       | football        |     480.00 | case | 24/case          |
+|         4 | HSK       | football        |     960.00 | case | 24/case          |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each             |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each             |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each             |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case     |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case     |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case          |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case          |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each             |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box            |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box            |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case      |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case      |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each             |
+|       104 | PRC       | rear derailleur |      58.00 | each | each             |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair             |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair             |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each             |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair             |
+|       108 | SHM       | crankset        |      45.00 | each | each             |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case     |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case     |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case           |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case           |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case           |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case           |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case           |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each             |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each             |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each             |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case    |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each             |
+|       201 | KAR       | golf shoes      |      90.00 | each | each             |
+|       201 | NKL       | golf shoes      |      37.50 | each | each             |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case      |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case      |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case      |
+|       204 | KAR       | putter          |      45.00 | each | each             |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case          |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case          |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case          |
+|       301 | ANZ       | running shoes   |      95.00 | each | each             |
+|       301 | HRO       | running shoes   |      42.50 | each | each             |
+|       301 | KAR       | running shoes   |      87.00 | each | each             |
+|       301 | NKL       | running shoes   |      97.00 | each | each             |
+|       301 | PRC       | running shoes   |      75.00 | each | each             |
+|       301 | SHM       | running shoes   |     102.00 | each | each             |
+|       302 | HRO       | ice pack        |       4.50 | each | each             |
+|       302 | KAR       | ice pack        |       5.00 | each | each             |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box     |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box     |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box           |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box           |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case           |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each             |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each             |
+|       307 | PRC       | infant jogger   |     250.00 | each | each             |
+|       308 | PRC       | twin jogger     |     280.00 | each | each             |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case          |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case          |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case          |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case          |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box      |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box           |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box           |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box           |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box           |
+|        11 | SMT       | ski goggles     |      85.00 | case | 10 goggless/case |
++-----------+-----------+-----------------+------------+------+------------------+
+75 rows in set (0.01 sec)
+
+mysql> DELETE FROM CHUDNOVETS_STOCK WHERE stock_num = 11 AND manu_code = 'SMT';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | unit_descr     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
++-----------+-----------+-----------------+------------+------+----------------+
+74 rows in set (0.00 sec)
+
+mysql> 
+
+

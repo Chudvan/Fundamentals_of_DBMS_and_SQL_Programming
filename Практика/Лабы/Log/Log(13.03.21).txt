@@ -1,0 +1,489 @@
+ivan@Ivan-PC:~$ sudo mysql -u root -p
+[sudo] пароль для ivan: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.23-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE stores;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE VIEW CHUDNOVETS_VIEW_CUSTOMER
+    -> AS
+    -> SELECT * FROM CHUDNOVETS_CUSTOMER
+    -> WHERE STATE = 'AZ';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_VIEW_CUSTOMER;
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+| CUSTOMER_NUM | FNAME | LNAME  | COMPANY          | ADDRESS1         | ADDRESS2 | CITY    | STATE | ZIPCODE | PHONE        |
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+|          120 | Fred  | Jewell | Century Pro Shop | 6627 N. 17th Way | NULL     | Phoenix | AZ    | 85016   | 602-265-8754 |
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_CUSTOMER WHERE STATE = 'AZ';
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+| CUSTOMER_NUM | FNAME | LNAME  | COMPANY          | ADDRESS1         | ADDRESS2 | CITY    | STATE | ZIPCODE | PHONE        |
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+|          120 | Fred  | Jewell | Century Pro Shop | 6627 N. 17th Way | NULL     | Phoenix | AZ    | 85016   | 602-265-8754 |
++--------------+-------+--------+------------------+------------------+----------+---------+-------+---------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_stores         |
++--------------------------+
+| CHUDNOVETS_CUSTOMER      |
+| CHUDNOVETS_ITEMS         |
+| CHUDNOVETS_MANUFACT      |
+| CHUDNOVETS_ORDERS        |
+| CHUDNOVETS_STATE         |
+| CHUDNOVETS_STOCK         |
+| CHUDNOVETS_VIEW_CUSTOMER |
++--------------------------+
+7 rows in set (0.01 sec)
+
+mysql> 
+
+---
+
+ivan@Ivan-PC:~$ sudo mysql -u root -p
+[sudo] пароль для ivan: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.23-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE stores;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_stores         |
++--------------------------+
+| CHUDNOVETS_CUSTOMER      |
+| CHUDNOVETS_ITEMS         |
+| CHUDNOVETS_MANUFACT      |
+| CHUDNOVETS_ORDERS        |
+| CHUDNOVETS_STATE         |
+| CHUDNOVETS_STOCK         |
+| CHUDNOVETS_VIEW_CUSTOMER |
++--------------------------+
+7 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_ITEMS;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ITEM_NUM    | smallint     | NO   |     | NULL    |       |
+| ORDER_NUM   | int          | NO   |     | NULL    |       |
+| STOCK_NUM   | smallint     | NO   |     | NULL    |       |
+| MANU_CODE   | char(3)      | NO   |     | NULL    |       |
+| QUANTITY    | smallint     | YES  |     | NULL    |       |
+| TOTAL_PRICE | decimal(8,2) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> CREATE VIEW CHUDNOVETS_VIEW_ITEMS
+    -> AS
+    -> SELECT * FROM CHUDNOVETS_ITEMS
+    -> WHERE total_price > 500;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_stores         |
++--------------------------+
+| CHUDNOVETS_CUSTOMER      |
+| CHUDNOVETS_ITEMS         |
+| CHUDNOVETS_MANUFACT      |
+| CHUDNOVETS_ORDERS        |
+| CHUDNOVETS_STATE         |
+| CHUDNOVETS_STOCK         |
+| CHUDNOVETS_VIEW_CUSTOMER |
+| CHUDNOVETS_VIEW_ITEMS    |
++--------------------------+
+8 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_VIEW_ITEMS;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+8 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS WHERE total_price > 500;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS WHERE total_price <= 500;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+44 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS WHERE total_price > 500;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_stores         |
++--------------------------+
+| CHUDNOVETS_CUSTOMER      |
+| CHUDNOVETS_ITEMS         |
+| CHUDNOVETS_MANUFACT      |
+| CHUDNOVETS_ORDERS        |
+| CHUDNOVETS_STATE         |
+| CHUDNOVETS_STOCK         |
+| CHUDNOVETS_VIEW_CUSTOMER |
+| CHUDNOVETS_VIEW_ITEMS    |
++--------------------------+
+8 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_CUSTOMER;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| CUSTOMER_NUM | int      | YES  |     | NULL    |       |
+| FNAME        | char(15) | YES  |     | NULL    |       |
+| LNAME        | char(15) | YES  |     | NULL    |       |
+| COMPANY      | char(20) | YES  |     | NULL    |       |
+| ADDRESS1     | char(20) | YES  |     | NULL    |       |
+| ADDRESS2     | char(20) | YES  |     | NULL    |       |
+| CITY         | char(15) | YES  |     | NULL    |       |
+| STATE        | char(2)  | YES  |     | NULL    |       |
+| ZIPCODE      | char(5)  | YES  |     | NULL    |       |
+| PHONE        | char(18) | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_CUSTOMER ADD cust_date DATE;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_CUSTOMER;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| CUSTOMER_NUM | int      | YES  |     | NULL    |       |
+| FNAME        | char(15) | YES  |     | NULL    |       |
+| LNAME        | char(15) | YES  |     | NULL    |       |
+| COMPANY      | char(20) | YES  |     | NULL    |       |
+| ADDRESS1     | char(20) | YES  |     | NULL    |       |
+| ADDRESS2     | char(20) | YES  |     | NULL    |       |
+| CITY         | char(15) | YES  |     | NULL    |       |
+| STATE        | char(2)  | YES  |     | NULL    |       |
+| ZIPCODE      | char(5)  | YES  |     | NULL    |       |
+| PHONE        | char(18) | YES  |     | NULL    |       |
+| cust_date    | date     | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_ORDERS DROP backlog;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_ORDERS;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| ORDER_NUM     | int          | NO   |     | NULL    |       |
+| ORDER_DATE    | date         | YES  |     | NULL    |       |
+| CUSTOMER_NUM  | int          | NO   |     | NULL    |       |
+| SHIP_INSTRUCT | char(40)     | YES  |     | NULL    |       |
+| PO_NUM        | char(10)     | YES  |     | NULL    |       |
+| SHIP_DATE     | date         | YES  |     | NULL    |       |
+| SHIP_WEIGHT   | decimal(8,2) | YES  |     | NULL    |       |
+| SHIP_CHARGE   | decimal(8,2) | YES  |     | NULL    |       |
+| PAID_DATE     | date         | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STATE;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| CODE  | char(2)  | NO   |     | NULL    |       |
+| SNAME | char(15) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_STATE ALTER COLUMN code TO state_code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TO state_code' at line 1
+mysql> ALTER TABLE CHUDNOVETS_STATE CHANGE COLUMN code state_code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> ALTER TABLE CHUDNOVETS_STATE CHANGE COLUMN code state_code char(2);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STATE;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| state_code | char(2)  | YES  |     | NULL    |       |
+| SNAME      | char(15) | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_STATE CHANGE COLUMN sname state_name char(15);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_STATE;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| state_code | char(2)  | YES  |     | NULL    |       |
+| state_name | char(15) | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++--------------------------+
+| Tables_in_stores         |
++--------------------------+
+| CHUDNOVETS_CUSTOMER      |
+| CHUDNOVETS_ITEMS         |
+| CHUDNOVETS_MANUFACT      |
+| CHUDNOVETS_ORDERS        |
+| CHUDNOVETS_STATE         |
+| CHUDNOVETS_STOCK         |
+| CHUDNOVETS_VIEW_CUSTOMER |
+| CHUDNOVETS_VIEW_ITEMS    |
++--------------------------+
+8 rows in set (0.01 sec)
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_MANUFACT;
++-----------+----------+------+-----+---------+-------+
+| Field     | Type     | Null | Key | Default | Extra |
++-----------+----------+------+-----+---------+-------+
+| MANU_CODE | char(3)  | NO   |     | NULL    |       |
+| MANU_NAME | char(15) | YES  |     | NULL    |       |
+| LEAD_TIME | int      | YES  |     | NULL    |       |
++-----------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_MANUFACT CHANGE COLUMN manu_code manu_code varchar(20);
+Query OK, 9 rows affected (0.06 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_MANUFACT;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| manu_code | varchar(20) | YES  |     | NULL    |       |
+| MANU_NAME | char(15)    | YES  |     | NULL    |       |
+| LEAD_TIME | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CHUDNOVETS_MANUFACT CHANGE COLUMN manu_name manu_name char(80);
+Query OK, 9 rows affected (0.06 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_MANUFACT;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| manu_code | varchar(20) | YES  |     | NULL    |       |
+| manu_name | char(80)    | YES  |     | NULL    |       |
+| LEAD_TIME | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> SHOW COLUMNS FROM CHUDNOVETS_CUSTOMER;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| CUSTOMER_NUM | int      | YES  |     | NULL    |       |
+| FNAME        | char(15) | YES  |     | NULL    |       |
+| LNAME        | char(15) | YES  |     | NULL    |       |
+| COMPANY      | char(20) | YES  |     | NULL    |       |
+| ADDRESS1     | char(20) | YES  |     | NULL    |       |
+| ADDRESS2     | char(20) | YES  |     | NULL    |       |
+| CITY         | char(15) | YES  |     | NULL    |       |
+| STATE        | char(2)  | YES  |     | NULL    |       |
+| ZIPCODE      | char(5)  | YES  |     | NULL    |       |
+| PHONE        | char(18) | YES  |     | NULL    |       |
+| cust_date    | date     | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> CREATE INDEX customer_index ON CHUDNOVETS_CUSTOMER 
+    -> (CUSTOMER_NUM);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE INDEX customer_composite_index ON CHUDNOVETS_CUSTOMER (FNAME, LNAME);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW INDEX FROM CHUDNOVETS_CUSTOMER;
++---------------------+------------+--------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table               | Non_unique | Key_name                 | Seq_in_index | Column_name  | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------------------+------------+--------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| CHUDNOVETS_CUSTOMER |          1 | customer_index           |            1 | CUSTOMER_NUM | A         |          22 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| CHUDNOVETS_CUSTOMER |          1 | customer_composite_index |            1 | FNAME        | A         |          22 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| CHUDNOVETS_CUSTOMER |          1 | customer_composite_index |            2 | LNAME        | A         |          22 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------------------+------------+--------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.01 sec)
+
+mysql> 
+---
+

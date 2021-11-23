@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<oneoff_actions>
+<oracle.has.db opt_req="O" version="19.0.0.0.0">
+<copy backup_in_zip="false" file_name="srvm/admin/clustdb.sql" name="clustdb.sql" path="%ORACLE_HOME%/srvm/admin" retain_permission="true" shaolue="F2D7B69F6C2AAAA1537FA84249E02789A6D486A5"/>
+</oracle.has.db>
+</oneoff_actions>

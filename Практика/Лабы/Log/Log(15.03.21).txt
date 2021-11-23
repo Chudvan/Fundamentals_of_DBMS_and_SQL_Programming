@@ -1,0 +1,940 @@
+ivan@Ivan-PC:~$ sudo mysql -u root -p
+[sudo] пароль для ivan: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.23-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE stores;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM CHUDNOVETS_MANUFACT;
++-----------+-----------+-----------+
+| manu_code | manu_name | LEAD_TIME |
++-----------+-----------+-----------+
+| ANZ       | Anza      |         5 |
+| HRO       | Hero      |         4 |
+| HSK       | Husky     |         5 |
+| KAR       | Karsten   |        21 |
+| NKL       | Nikolus   |         8 |
+| NRG       | Norge     |         7 |
+| PRC       | ProCycle  |         9 |
+| SHM       | Shimara   |        30 |
+| SMT       | Smith     |         3 |
++-----------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_ITEMS ORDER BY MANU_CODE;
++----------+-----------+-----------+-----------+----------+-------------+
+| ITEM_NUM | ORDER_NUM | STOCK_NUM | MANU_CODE | QUANTITY | TOTAL_PRICE |
++----------+-----------+-----------+-----------+----------+-------------+
+|        1 |      1012 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1005 |         5 | ANZ       |       10 |      198.00 |
+|        2 |      1003 |         8 | ANZ       |        1 |      840.00 |
+|        2 |      1008 |         9 | ANZ       |        5 |      100.00 |
+|        2 |      1010 |         6 | ANZ       |        1 |       48.00 |
+|        2 |      1012 |         9 | ANZ       |       10 |      200.00 |
+|        3 |      1003 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1006 |         5 | ANZ       |        5 |       99.00 |
+|        1 |      1013 |         5 | ANZ       |        1 |       19.80 |
+|        1 |      1011 |         5 | ANZ       |        5 |       99.00 |
+|        3 |      1013 |         6 | ANZ       |        1 |       48.00 |
+|        4 |      1005 |         6 | ANZ       |        1 |       48.00 |
+|        1 |      1008 |         8 | ANZ       |        1 |      840.00 |
+|        4 |      1013 |         9 | ANZ       |        2 |       40.00 |
+|        5 |      1006 |         6 | ANZ       |        1 |       48.00 |
+|        1 |      1003 |         9 | ANZ       |        1 |       20.00 |
+|        5 |      1018 |       304 | HRO       |        1 |      280.00 |
+|        4 |      1007 |         4 | HRO       |        1 |      480.00 |
+|        2 |      1014 |         4 | HRO       |        1 |      480.00 |
+|        5 |      1007 |         7 | HRO       |        1 |      600.00 |
+|        2 |      1007 |         2 | HRO       |        1 |      126.00 |
+|        1 |      1001 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1004 |         1 | HRO       |        1 |      250.00 |
+|        1 |      1007 |         1 | HRO       |        1 |      250.00 |
+|        2 |      1004 |         2 | HRO       |        1 |      126.00 |
+|        3 |      1007 |         3 | HSK       |        1 |      240.00 |
+|        1 |      1002 |         4 | HSK       |        1 |      960.00 |
+|        4 |      1004 |         1 | HSK       |        1 |      800.00 |
+|        3 |      1016 |       110 | HSK       |        1 |      308.00 |
+|        1 |      1014 |         4 | HSK       |        1 |      960.00 |
+|        3 |      1004 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1002 |         3 | HSK       |        1 |      240.00 |
+|        2 |      1018 |       302 | KAR       |        3 |       15.00 |
+|        2 |      1017 |       202 | KAR       |        1 |      230.00 |
+|        1 |      1017 |       201 | NKL       |        4 |      150.00 |
+|        2 |      1006 |         5 | NRG       |        5 |      140.00 |
+|        1 |      1005 |         5 | NRG       |       10 |      280.00 |
+|        3 |      1018 |       110 | PRC       |        1 |      236.00 |
+|        1 |      1018 |       307 | PRC       |        2 |      500.00 |
+|        4 |      1016 |       114 | PRC       |        1 |      120.00 |
+|        2 |      1016 |       109 | PRC       |        3 |       90.00 |
+|        1 |      1016 |       101 | SHM       |        2 |      136.00 |
+|        3 |      1017 |       301 | SHM       |        2 |      204.00 |
+|        1 |      1019 |       111 | SHM       |        3 |     1499.97 |
+|        2 |      1013 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1010 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1009 |         1 | SMT       |        1 |      450.00 |
+|        4 |      1006 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1006 |         5 | SMT       |        5 |      125.00 |
+|        4 |      1018 |         5 | SMT       |        4 |      100.00 |
+|        3 |      1005 |         6 | SMT       |        1 |       36.00 |
+|        1 |      1015 |         1 | SMT       |        1 |      450.00 |
++----------+-----------+-----------+-----------+----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT SUM(total_price) FROM CHUDNOVETS_ITEMS GROUP BY (manu_code);
++------------------+
+| SUM(total_price) |
++------------------+
+|          2842.00 |
+|          3748.00 |
+|          3586.80 |
+|           420.00 |
+|          1269.00 |
+|          1839.97 |
+|           150.00 |
+|           946.00 |
+|           245.00 |
++------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, SUM(total_price) FROM CHUDNOVETS_ITEMS GROUP BY (manu_c
+ode);
++-----------+------------------+
+| manu_code | SUM(total_price) |
++-----------+------------------+
+| HRO       |          2842.00 |
+| HSK       |          3748.00 |
+| ANZ       |          3586.80 |
+| NRG       |           420.00 |
+| SMT       |          1269.00 |
+| SHM       |          1839.97 |
+| NKL       |           150.00 |
+| PRC       |           946.00 |
+| KAR       |           245.00 |
++-----------+------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, SUM(total_price) FROM CHUDNOVETS_ITEMS NATUR
+AL JOIN CHUDNOVETS_MANUFACT GROUP BY (manu_code);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_MANUFACT.manu_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT manu_code, manu_name, SUM(total_price) FROM CHUDNOVETS_ITEMS NATURAL GROUP BY (manu_code) JOIN CHUDNOVETS_MANUFACT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY (manu_code) JOIN CHUDNOVETS_MANUFACT' at line 1
+mysql> SELECT manu_code, manu_name, SUM(total_price) FROM CHUDNOVETS_ITEMS NATURAL JOIN CHUDNOVETS_MANUFACT GROUP BY (manu_code);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_MANUFACT.manu_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT manu_code, SUM(total_price) FROM CHUDNOVETS_ITEMS GROUP BY (manu_code);
++-----------+------------------+
+| manu_code | SUM(total_price) |
++-----------+------------------+
+| HRO       |          2842.00 |
+| HSK       |          3748.00 |
+| ANZ       |          3586.80 |
+| NRG       |           420.00 |
+| SMT       |          1269.00 |
+| SHM       |          1839.97 |
+| NKL       |           150.00 |
+| PRC       |           946.00 |
+| KAR       |           245.00 |
++-----------+------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, sum_total_price FROM CHUDNOVETS_MANUFACT NATURAL JOIN (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_IT
+EMS GROUP BY (manu_code));
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT manu_code, manu_name, sum_total_price FROM CHUDNOVETS_MANUFACT NATURAL JOIN (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s;
++-----------+-----------+-----------------+
+| manu_code | manu_name | sum_total_price |
++-----------+-----------+-----------------+
+| ANZ       | Anza      |         3586.80 |
+| HRO       | Hero      |         2842.00 |
+| HSK       | Husky     |         3748.00 |
+| KAR       | Karsten   |          245.00 |
+| NKL       | Nikolus   |          150.00 |
+| NRG       | Norge     |          420.00 |
+| PRC       | ProCycle  |          946.00 |
+| SHM       | Shimara   |         1839.97 |
+| SMT       | Smith     |         1269.00 |
++-----------+-----------+-----------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, sum_total_price FROM CHUDNOVETS_MANUFACT NATURAL JOIN (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s ORDER BY manu_code;
++-----------+-----------+-----------------+
+| manu_code | manu_name | sum_total_price |
++-----------+-----------+-----------------+
+| ANZ       | Anza      |         3586.80 |
+| HRO       | Hero      |         2842.00 |
+| HSK       | Husky     |         3748.00 |
+| KAR       | Karsten   |          245.00 |
+| NKL       | Nikolus   |          150.00 |
+| NRG       | Norge     |          420.00 |
+| PRC       | ProCycle  |          946.00 |
+| SHM       | Shimara   |         1839.97 |
+| SMT       | Smith     |         1269.00 |
++-----------+-----------+-----------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, sum_total_price FROM CHUDNOVETS_MANUFACT NATURAL JOIN (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s ORDER BY manu_code DESC;
++-----------+-----------+-----------------+
+| manu_code | manu_name | sum_total_price |
++-----------+-----------+-----------------+
+| SMT       | Smith     |         1269.00 |
+| SHM       | Shimara   |         1839.97 |
+| PRC       | ProCycle  |          946.00 |
+| NRG       | Norge     |          420.00 |
+| NKL       | Nikolus   |          150.00 |
+| KAR       | Karsten   |          245.00 |
+| HSK       | Husky     |         3748.00 |
+| HRO       | Hero      |         2842.00 |
+| ANZ       | Anza      |         3586.80 |
++-----------+-----------+-----------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, sum_total_price FROM CHUDNOVETS_MANUFACT NATURAL JOIN (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s ORDER BY manu_code;
++-----------+-----------+-----------------+
+| manu_code | manu_name | sum_total_price |
++-----------+-----------+-----------------+
+| ANZ       | Anza      |         3586.80 |
+| HRO       | Hero      |         2842.00 |
+| HSK       | Husky     |         3748.00 |
+| KAR       | Karsten   |          245.00 |
+| NKL       | Nikolus   |          150.00 |
+| NRG       | Norge     |          420.00 |
+| PRC       | ProCycle  |          946.00 |
+| SHM       | Shimara   |         1839.97 |
+| SMT       | Smith     |         1269.00 |
++-----------+-----------+-----------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT m.manu_code, m.manu_name, SUM(i.total_price)
+    -> FROM CHUDNOVETS_MANUFACT m JOIN CHUDNOVETS_ITEMS i
+    -> ON m.manu_code = i.manu_code
+    -> GROUP BY m.manu_code;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.m.manu_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT m.manu_code, SUM(i.total_price) FROM CHUDNOVETS_MANUFACT m JOIN CHUDNOVETS_ITEMS i ON m.manu_code = i.manu_code GROUP BY m.manu_code;
++-----------+--------------------+
+| manu_code | SUM(i.total_price) |
++-----------+--------------------+
+| HRO       |            2842.00 |
+| HSK       |            3748.00 |
+| ANZ       |            3586.80 |
+| NRG       |             420.00 |
+| SMT       |            1269.00 |
+| SHM       |            1839.97 |
+| NKL       |             150.00 |
+| PRC       |             946.00 |
+| KAR       |             245.00 |
++-----------+--------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT m.manu_code, m.manu_name, SUM(i.total_price) FROM CHUDNOVETS_MANUFACT m JOIN CHUDNOVETS_ITEMS i ON m.manu_code = i.manu_code GROUP BY m.manu_code, m.manu_name;
++-----------+-----------+--------------------+
+| manu_code | manu_name | SUM(i.total_price) |
++-----------+-----------+--------------------+
+| HRO       | Hero      |            2842.00 |
+| HSK       | Husky     |            3748.00 |
+| ANZ       | Anza      |            3586.80 |
+| NRG       | Norge     |             420.00 |
+| SMT       | Smith     |            1269.00 |
+| SHM       | Shimara   |            1839.97 |
+| NKL       | Nikolus   |             150.00 |
+| PRC       | ProCycle  |             946.00 |
+| KAR       | Karsten   |             245.00 |
++-----------+-----------+--------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT m.manu_code, m.manu_name, SUM(i.total_price)
+    -> FROM CHUDNOVETS_MANUFACT m JOIN CHUDNOVETS_ITEMS i
+    -> ON m.manu_code = i.manu_code
+    -> GROUP BY m.manu_code, m.manu_name
+    -> ORDER BY m.manu_code;
++-----------+-----------+--------------------+
+| manu_code | manu_name | SUM(i.total_price) |
++-----------+-----------+--------------------+
+| ANZ       | Anza      |            3586.80 |
+| HRO       | Hero      |            2842.00 |
+| HSK       | Husky     |            3748.00 |
+| KAR       | Karsten   |             245.00 |
+| NKL       | Nikolus   |             150.00 |
+| NRG       | Norge     |             420.00 |
+| PRC       | ProCycle  |             946.00 |
+| SHM       | Shimara   |            1839.97 |
+| SMT       | Smith     |            1269.00 |
++-----------+-----------+--------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT manu_code, manu_name, sum_total_price 
+    -> FROM CHUDNOVETS_MANUFACT NATURAL JOIN 
+    -> (SELECT manu_code, SUM(total_price) sum_total_price FROM CHUDNOVETS_ITEMS GROUP BY (manu_code)) s 
+    -> ORDER BY manu_code;
++-----------+-----------+-----------------+
+| manu_code | manu_name | sum_total_price |
++-----------+-----------+-----------------+
+| ANZ       | Anza      |         3586.80 |
+| HRO       | Hero      |         2842.00 |
+| HSK       | Husky     |         3748.00 |
+| KAR       | Karsten   |          245.00 |
+| NKL       | Nikolus   |          150.00 |
+| NRG       | Norge     |          420.00 |
+| PRC       | ProCycle  |          946.00 |
+| SHM       | Shimara   |         1839.97 |
+| SMT       | Smith     |         1269.00 |
++-----------+-----------+-----------------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT m.manu_code,m.manu_name, SUM(i.total_price) FROM CHUDNOVETS_MANUFACT m, CHUDNOVETS_ITEMS i
+    -> WHERE m.manu_code=i.manu_code  
+    -> GROUP BY m.manu_code, m.manu_name
+    -> ORDER BY m.manu_code;
++-----------+-----------+--------------------+
+| manu_code | manu_name | SUM(i.total_price) |
++-----------+-----------+--------------------+
+| ANZ       | Anza      |            3586.80 |
+| HRO       | Hero      |            2842.00 |
+| HSK       | Husky     |            3748.00 |
+| KAR       | Karsten   |             245.00 |
+| NKL       | Nikolus   |             150.00 |
+| NRG       | Norge     |             420.00 |
+| PRC       | ProCycle  |             946.00 |
+| SHM       | Shimara   |            1839.97 |
+| SMT       | Smith     |            1269.00 |
++-----------+-----------+--------------------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT manu_code, SUM(total_price) FROM CHUDNOVETS_ITEMS
+    -> GROUP BY manu_code;
++-----------+------------------+
+| manu_code | SUM(total_price) |
++-----------+------------------+
+| HRO       |          2842.00 |
+| HSK       |          3748.00 |
+| ANZ       |          3586.80 |
+| NRG       |           420.00 |
+| SMT       |          1269.00 |
+| SHM       |          1839.97 |
+| NKL       |           150.00 |
+| PRC       |           946.00 |
+| KAR       |           245.00 |
++-----------+------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS
+    -> WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code  
+    -> ORDER BY CHUDNOVETS_MANUFACT.manu_code;
++-----------+-----------+-------------+
+| manu_code | manu_name | total_price |
++-----------+-----------+-------------+
+| ANZ       | Anza      |      840.00 |
+| ANZ       | Anza      |      198.00 |
+| ANZ       | Anza      |      840.00 |
+| ANZ       | Anza      |      100.00 |
+| ANZ       | Anza      |       48.00 |
+| ANZ       | Anza      |      200.00 |
+| ANZ       | Anza      |       99.00 |
+| ANZ       | Anza      |       99.00 |
+| ANZ       | Anza      |       19.80 |
+| ANZ       | Anza      |       99.00 |
+| ANZ       | Anza      |       48.00 |
+| ANZ       | Anza      |       48.00 |
+| ANZ       | Anza      |      840.00 |
+| ANZ       | Anza      |       40.00 |
+| ANZ       | Anza      |       48.00 |
+| ANZ       | Anza      |       20.00 |
+| HRO       | Hero      |      280.00 |
+| HRO       | Hero      |      480.00 |
+| HRO       | Hero      |      480.00 |
+| HRO       | Hero      |      600.00 |
+| HRO       | Hero      |      126.00 |
+| HRO       | Hero      |      250.00 |
+| HRO       | Hero      |      250.00 |
+| HRO       | Hero      |      250.00 |
+| HRO       | Hero      |      126.00 |
+| HSK       | Husky     |      240.00 |
+| HSK       | Husky     |      960.00 |
+| HSK       | Husky     |      800.00 |
+| HSK       | Husky     |      308.00 |
+| HSK       | Husky     |      960.00 |
+| HSK       | Husky     |      240.00 |
+| HSK       | Husky     |      240.00 |
+| KAR       | Karsten   |       15.00 |
+| KAR       | Karsten   |      230.00 |
+| NKL       | Nikolus   |      150.00 |
+| NRG       | Norge     |      140.00 |
+| NRG       | Norge     |      280.00 |
+| PRC       | ProCycle  |      236.00 |
+| PRC       | ProCycle  |      500.00 |
+| PRC       | ProCycle  |      120.00 |
+| PRC       | ProCycle  |       90.00 |
+| SHM       | Shimara   |      136.00 |
+| SHM       | Shimara   |      204.00 |
+| SHM       | Shimara   |     1499.97 |
+| SMT       | Smith     |       36.00 |
+| SMT       | Smith     |       36.00 |
+| SMT       | Smith     |      450.00 |
+| SMT       | Smith     |       36.00 |
+| SMT       | Smith     |      125.00 |
+| SMT       | Smith     |      100.00 |
+| SMT       | Smith     |       36.00 |
+| SMT       | Smith     |      450.00 |
++-----------+-----------+-------------+
+52 rows in set (0.00 sec)
+
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code GROUP BY CHUDNOVETS_MANUFACT.manu_code, manu_name ORDER BY CHUDNOVETS_MANUFACT.manu_code;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_ITEMS.TOTAL_PRICE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code GROUP BY CHUDNOVETS_MANUFACT.manu_code, manu_name ORDER BY CHUDNOVETS_MANUFACT.manu_code;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_ITEMS.TOTAL_PRICE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code GROUP BY CHUDNOVETS_MANUFACT.manu_code, manu_name ORDER BY CHUDNOVETS_MANUFACT.manu_code;
+
+^C
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, total_price
+    -> FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS
+    -> WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code
+    -> GROUP BY CHUDNOVETS_MANUFACT.manu_code, manu_name
+    -> ORDER BY CHUDNOVETS_MANUFACT.manu_code;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.CHUDNOVETS_ITEMS.TOTAL_PRICE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT CHUDNOVETS_MANUFACT.manu_code, manu_name, SUM(total_price) FROM CHUDNOVETS_MANUFACT, CHUDNOVETS_ITEMS WHERE CHUDNOVETS_MANUFACT.manu_code=CHUDNOVETS_ITEMS.manu_code GROUP BY CHUDNOVETS_MANUFACT.manu_code, manu_name ORDER BY CHUDNOVETS_MANUFACT.manu_code;
++-----------+-----------+------------------+
+| manu_code | manu_name | SUM(total_price) |
++-----------+-----------+------------------+
+| ANZ       | Anza      |          3586.80 |
+| HRO       | Hero      |          2842.00 |
+| HSK       | Husky     |          3748.00 |
+| KAR       | Karsten   |           245.00 |
+| NKL       | Nikolus   |           150.00 |
+| NRG       | Norge     |           420.00 |
+| PRC       | ProCycle  |           946.00 |
+| SHM       | Shimara   |          1839.97 |
+| SMT       | Smith     |          1269.00 |
++-----------+-----------+------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CHUDNOVETS_STOCK;
++-----------+-----------+-----------------+------------+------+----------------+
+| STOCK_NUM | MANU_CODE | DESCRIPTION     | UNIT_PRICE | UNIT | unit_descr     |
++-----------+-----------+-----------------+------------+------+----------------+
+|         1 | HRO       | baseball gloves |     250.00 | case | 10 gloves/case |
+|         1 | HSK       | baseball gloves |     800.00 | case | 10 gloves/case |
+|         1 | SMT       | baseball gloves |     450.00 | case | 10 gloves/case |
+|         2 | HRO       | baseball        |     126.00 | case | 24/case        |
+|         3 | HSK       | baseball bat    |     240.00 | case | 12/case        |
+|         3 | SHM       | baseball bat    |     280.00 | case | 12/case        |
+|         4 | HRO       | football        |     480.00 | case | 24/case        |
+|         4 | HSK       | football        |     960.00 | case | 24/case        |
+|         5 | ANZ       | tennis racquet  |      19.80 | each | each           |
+|         5 | NRG       | tennis racquet  |      28.00 | each | each           |
+|         5 | SMT       | tennis racquet  |      25.00 | each | each           |
+|         6 | ANZ       | tennis ball     |      48.00 | case | 24 cans/case   |
+|         6 | SMT       | tennis ball     |      36.00 | case | 24 cans/case   |
+|         7 | HRO       | basketball      |     600.00 | case | 24/case        |
+|         8 | ANZ       | volleyball      |     840.00 | case | 24/case        |
+|         9 | ANZ       | volleyball net  |      20.00 | each | each           |
+|       101 | PRC       | bicycle tires   |      88.00 | box  | 4/box          |
+|       101 | SHM       | bicycle tires   |      68.00 | box  | 4/box          |
+|       102 | PRC       | bicycle brakes  |     480.00 | case | 4 sets/case    |
+|       102 | SHM       | bicycle brakes  |     220.00 | case | 4 sets/case    |
+|       103 | PRC       | frnt derailleur |      20.00 | each | each           |
+|       104 | PRC       | rear derailleur |      58.00 | each | each           |
+|       105 | PRC       | bicycle wheels  |      53.00 | pair | pair           |
+|       105 | SHM       | bicycle wheels  |      80.00 | pair | pair           |
+|       106 | PRC       | bicycle stem    |      23.00 | each | each           |
+|       107 | PRC       | bicycle saddle  |      70.00 | pair | pair           |
+|       108 | SHM       | crankset        |      45.00 | each | each           |
+|       109 | PRC       | pedal binding   |      30.00 | case | 6 pairs/case   |
+|       109 | SHM       | pedal binding   |     200.00 | case | 4 pairs/case   |
+|       110 | ANZ       | helmet          |     244.00 | case | 4/case         |
+|       110 | HRO       | helmet          |     260.00 | case | 4/case         |
+|       110 | HSK       | helmet          |     308.00 | case | 4/case         |
+|       110 | PRC       | helmet          |     236.00 | case | 4/case         |
+|       110 | SHM       | helmet          |     228.00 | case | 4/case         |
+|       111 | SHM       | 10-spd, assmbld |     499.99 | each | each           |
+|       112 | SHM       | 12-spd, assmbld |     549.00 | each | each           |
+|       113 | SHM       | 18-spd, assmbld |     685.90 | each | each           |
+|       114 | PRC       | bicycle gloves  |     120.00 | case | 10 pairs/case  |
+|       201 | ANZ       | golf shoes      |      75.00 | each | each           |
+|       201 | KAR       | golf shoes      |      90.00 | each | each           |
+|       201 | NKL       | golf shoes      |      37.50 | each | each           |
+|       202 | KAR       | std woods       |     230.00 | case | 2 sets/case    |
+|       202 | NKL       | metal woods     |     174.00 | case | 2 sets/case    |
+|       203 | NKL       | irons/wedge     |     670.00 | case | 2 sets/case    |
+|       204 | KAR       | putter          |      45.00 | each | each           |
+|       205 | ANZ       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | HRO       | 3 golf balls    |     312.00 | case | 24/case        |
+|       205 | NKL       | 3 golf balls    |     312.00 | case | 24/case        |
+|       301 | ANZ       | running shoes   |      95.00 | each | each           |
+|       301 | HRO       | running shoes   |      42.50 | each | each           |
+|       301 | KAR       | running shoes   |      87.00 | each | each           |
+|       301 | NKL       | running shoes   |      97.00 | each | each           |
+|       301 | PRC       | running shoes   |      75.00 | each | each           |
+|       301 | SHM       | running shoes   |     102.00 | each | each           |
+|       302 | HRO       | ice pack        |       4.50 | each | each           |
+|       302 | KAR       | ice pack        |       5.00 | each | each           |
+|       303 | KAR       | socks           |      36.00 | box  | 24 pairs/box   |
+|       303 | PRC       | socks           |      48.00 | box  | 24 pairs/box   |
+|       304 | ANZ       | watch           |     170.00 | box  | 10/box         |
+|       304 | HRO       | watch           |     280.00 | box  | 10/box         |
+|       305 | HRO       | first-aid kit   |      48.00 | case | 4/case         |
+|       306 | PRC       | tandem adapter  |     160.00 | each | each           |
+|       306 | SHM       | tandem adapter  |     190.00 | each | each           |
+|       307 | PRC       | infant jogger   |     250.00 | each | each           |
+|       308 | PRC       | twin jogger     |     280.00 | each | each           |
+|       309 | HRO       | ear drops       |      40.00 | case | 20/case        |
+|       309 | SHM       | ear drops       |      40.00 | case | 20/case        |
+|       310 | ANZ       | kick board      |      84.00 | case | 12/case        |
+|       310 | SHM       | kick board      |      80.00 | case | 10/case        |
+|       311 | SHM       | water gloves    |      48.00 | box  | 4 pairs/box    |
+|       312 | HRO       | racer goggles   |      72.00 | box  | 12/box         |
+|       312 | SHM       | racer goggles   |      96.00 | box  | 12/box         |
+|       313 | ANZ       | swim cap        |      60.00 | box  | 12/box         |
+|       313 | SHM       | swim cap        |      72.00 | box  | 12/box         |
++-----------+-----------+-----------------+------------+------+----------------+
+74 rows in set (0.00 sec)
+
+mysql> SELECT S.description, S.manu_code, C.description, C.manu_code
+    -> FROM CHUDNOVETS_STOCK S, CHUDNOVETS_STOCK C
+    -> WHERE S.stock_num = C.stock_num;
++-----------------+-----------+-----------------+-----------+
+| description     | manu_code | description     | manu_code |
++-----------------+-----------+-----------------+-----------+
+| baseball gloves | SMT       | baseball gloves | HRO       |
+| baseball gloves | HSK       | baseball gloves | HRO       |
+| baseball gloves | HRO       | baseball gloves | HRO       |
+| baseball gloves | SMT       | baseball gloves | HSK       |
+| baseball gloves | HSK       | baseball gloves | HSK       |
+| baseball gloves | HRO       | baseball gloves | HSK       |
+| baseball gloves | SMT       | baseball gloves | SMT       |
+| baseball gloves | HSK       | baseball gloves | SMT       |
+| baseball gloves | HRO       | baseball gloves | SMT       |
+| baseball        | HRO       | baseball        | HRO       |
+| baseball bat    | SHM       | baseball bat    | HSK       |
+| baseball bat    | HSK       | baseball bat    | HSK       |
+| baseball bat    | SHM       | baseball bat    | SHM       |
+| baseball bat    | HSK       | baseball bat    | SHM       |
+| football        | HSK       | football        | HRO       |
+| football        | HRO       | football        | HRO       |
+| football        | HSK       | football        | HSK       |
+| football        | HRO       | football        | HSK       |
+| tennis racquet  | SMT       | tennis racquet  | ANZ       |
+| tennis racquet  | NRG       | tennis racquet  | ANZ       |
+| tennis racquet  | ANZ       | tennis racquet  | ANZ       |
+| tennis racquet  | SMT       | tennis racquet  | NRG       |
+| tennis racquet  | NRG       | tennis racquet  | NRG       |
+| tennis racquet  | ANZ       | tennis racquet  | NRG       |
+| tennis racquet  | SMT       | tennis racquet  | SMT       |
+| tennis racquet  | NRG       | tennis racquet  | SMT       |
+| tennis racquet  | ANZ       | tennis racquet  | SMT       |
+| tennis ball     | SMT       | tennis ball     | ANZ       |
+| tennis ball     | ANZ       | tennis ball     | ANZ       |
+| tennis ball     | SMT       | tennis ball     | SMT       |
+| tennis ball     | ANZ       | tennis ball     | SMT       |
+| basketball      | HRO       | basketball      | HRO       |
+| volleyball      | ANZ       | volleyball      | ANZ       |
+| volleyball net  | ANZ       | volleyball net  | ANZ       |
+| bicycle tires   | SHM       | bicycle tires   | PRC       |
+| bicycle tires   | PRC       | bicycle tires   | PRC       |
+| bicycle tires   | SHM       | bicycle tires   | SHM       |
+| bicycle tires   | PRC       | bicycle tires   | SHM       |
+| bicycle brakes  | SHM       | bicycle brakes  | PRC       |
+| bicycle brakes  | PRC       | bicycle brakes  | PRC       |
+| bicycle brakes  | SHM       | bicycle brakes  | SHM       |
+| bicycle brakes  | PRC       | bicycle brakes  | SHM       |
+| frnt derailleur | PRC       | frnt derailleur | PRC       |
+| rear derailleur | PRC       | rear derailleur | PRC       |
+| bicycle wheels  | SHM       | bicycle wheels  | PRC       |
+| bicycle wheels  | PRC       | bicycle wheels  | PRC       |
+| bicycle wheels  | SHM       | bicycle wheels  | SHM       |
+| bicycle wheels  | PRC       | bicycle wheels  | SHM       |
+| bicycle stem    | PRC       | bicycle stem    | PRC       |
+| bicycle saddle  | PRC       | bicycle saddle  | PRC       |
+| crankset        | SHM       | crankset        | SHM       |
+| pedal binding   | SHM       | pedal binding   | PRC       |
+| pedal binding   | PRC       | pedal binding   | PRC       |
+| pedal binding   | SHM       | pedal binding   | SHM       |
+| pedal binding   | PRC       | pedal binding   | SHM       |
+| helmet          | SHM       | helmet          | ANZ       |
+| helmet          | PRC       | helmet          | ANZ       |
+| helmet          | HSK       | helmet          | ANZ       |
+| helmet          | HRO       | helmet          | ANZ       |
+| helmet          | ANZ       | helmet          | ANZ       |
+| helmet          | SHM       | helmet          | HRO       |
+| helmet          | PRC       | helmet          | HRO       |
+| helmet          | HSK       | helmet          | HRO       |
+| helmet          | HRO       | helmet          | HRO       |
+| helmet          | ANZ       | helmet          | HRO       |
+| helmet          | SHM       | helmet          | HSK       |
+| helmet          | PRC       | helmet          | HSK       |
+| helmet          | HSK       | helmet          | HSK       |
+| helmet          | HRO       | helmet          | HSK       |
+| helmet          | ANZ       | helmet          | HSK       |
+| helmet          | SHM       | helmet          | PRC       |
+| helmet          | PRC       | helmet          | PRC       |
+| helmet          | HSK       | helmet          | PRC       |
+| helmet          | HRO       | helmet          | PRC       |
+| helmet          | ANZ       | helmet          | PRC       |
+| helmet          | SHM       | helmet          | SHM       |
+| helmet          | PRC       | helmet          | SHM       |
+| helmet          | HSK       | helmet          | SHM       |
+| helmet          | HRO       | helmet          | SHM       |
+| helmet          | ANZ       | helmet          | SHM       |
+| 10-spd, assmbld | SHM       | 10-spd, assmbld | SHM       |
+| 12-spd, assmbld | SHM       | 12-spd, assmbld | SHM       |
+| 18-spd, assmbld | SHM       | 18-spd, assmbld | SHM       |
+| bicycle gloves  | PRC       | bicycle gloves  | PRC       |
+| golf shoes      | NKL       | golf shoes      | ANZ       |
+| golf shoes      | KAR       | golf shoes      | ANZ       |
+| golf shoes      | ANZ       | golf shoes      | ANZ       |
+| golf shoes      | NKL       | golf shoes      | KAR       |
+| golf shoes      | KAR       | golf shoes      | KAR       |
+| golf shoes      | ANZ       | golf shoes      | KAR       |
+| golf shoes      | NKL       | golf shoes      | NKL       |
+| golf shoes      | KAR       | golf shoes      | NKL       |
+| golf shoes      | ANZ       | golf shoes      | NKL       |
+| metal woods     | NKL       | std woods       | KAR       |
+| std woods       | KAR       | std woods       | KAR       |
+| metal woods     | NKL       | metal woods     | NKL       |
+| std woods       | KAR       | metal woods     | NKL       |
+| irons/wedge     | NKL       | irons/wedge     | NKL       |
+| putter          | KAR       | putter          | KAR       |
+| 3 golf balls    | NKL       | 3 golf balls    | ANZ       |
+| 3 golf balls    | HRO       | 3 golf balls    | ANZ       |
+| 3 golf balls    | ANZ       | 3 golf balls    | ANZ       |
+| 3 golf balls    | NKL       | 3 golf balls    | HRO       |
+| 3 golf balls    | HRO       | 3 golf balls    | HRO       |
+| 3 golf balls    | ANZ       | 3 golf balls    | HRO       |
+| 3 golf balls    | NKL       | 3 golf balls    | NKL       |
+| 3 golf balls    | HRO       | 3 golf balls    | NKL       |
+| 3 golf balls    | ANZ       | 3 golf balls    | NKL       |
+| running shoes   | SHM       | running shoes   | ANZ       |
+| running shoes   | PRC       | running shoes   | ANZ       |
+| running shoes   | NKL       | running shoes   | ANZ       |
+| running shoes   | KAR       | running shoes   | ANZ       |
+| running shoes   | HRO       | running shoes   | ANZ       |
+| running shoes   | ANZ       | running shoes   | ANZ       |
+| running shoes   | SHM       | running shoes   | HRO       |
+| running shoes   | PRC       | running shoes   | HRO       |
+| running shoes   | NKL       | running shoes   | HRO       |
+| running shoes   | KAR       | running shoes   | HRO       |
+| running shoes   | HRO       | running shoes   | HRO       |
+| running shoes   | ANZ       | running shoes   | HRO       |
+| running shoes   | SHM       | running shoes   | KAR       |
+| running shoes   | PRC       | running shoes   | KAR       |
+| running shoes   | NKL       | running shoes   | KAR       |
+| running shoes   | KAR       | running shoes   | KAR       |
+| running shoes   | HRO       | running shoes   | KAR       |
+| running shoes   | ANZ       | running shoes   | KAR       |
+| running shoes   | SHM       | running shoes   | NKL       |
+| running shoes   | PRC       | running shoes   | NKL       |
+| running shoes   | NKL       | running shoes   | NKL       |
+| running shoes   | KAR       | running shoes   | NKL       |
+| running shoes   | HRO       | running shoes   | NKL       |
+| running shoes   | ANZ       | running shoes   | NKL       |
+| running shoes   | SHM       | running shoes   | PRC       |
+| running shoes   | PRC       | running shoes   | PRC       |
+| running shoes   | NKL       | running shoes   | PRC       |
+| running shoes   | KAR       | running shoes   | PRC       |
+| running shoes   | HRO       | running shoes   | PRC       |
+| running shoes   | ANZ       | running shoes   | PRC       |
+| running shoes   | SHM       | running shoes   | SHM       |
+| running shoes   | PRC       | running shoes   | SHM       |
+| running shoes   | NKL       | running shoes   | SHM       |
+| running shoes   | KAR       | running shoes   | SHM       |
+| running shoes   | HRO       | running shoes   | SHM       |
+| running shoes   | ANZ       | running shoes   | SHM       |
+| ice pack        | KAR       | ice pack        | HRO       |
+| ice pack        | HRO       | ice pack        | HRO       |
+| ice pack        | KAR       | ice pack        | KAR       |
+| ice pack        | HRO       | ice pack        | KAR       |
+| socks           | PRC       | socks           | KAR       |
+| socks           | KAR       | socks           | KAR       |
+| socks           | PRC       | socks           | PRC       |
+| socks           | KAR       | socks           | PRC       |
+| watch           | HRO       | watch           | ANZ       |
+| watch           | ANZ       | watch           | ANZ       |
+| watch           | HRO       | watch           | HRO       |
+| watch           | ANZ       | watch           | HRO       |
+| first-aid kit   | HRO       | first-aid kit   | HRO       |
+| tandem adapter  | SHM       | tandem adapter  | PRC       |
+| tandem adapter  | PRC       | tandem adapter  | PRC       |
+| tandem adapter  | SHM       | tandem adapter  | SHM       |
+| tandem adapter  | PRC       | tandem adapter  | SHM       |
+| infant jogger   | PRC       | infant jogger   | PRC       |
+| twin jogger     | PRC       | twin jogger     | PRC       |
+| ear drops       | SHM       | ear drops       | HRO       |
+| ear drops       | HRO       | ear drops       | HRO       |
+| ear drops       | SHM       | ear drops       | SHM       |
+| ear drops       | HRO       | ear drops       | SHM       |
+| kick board      | SHM       | kick board      | ANZ       |
+| kick board      | ANZ       | kick board      | ANZ       |
+| kick board      | SHM       | kick board      | SHM       |
+| kick board      | ANZ       | kick board      | SHM       |
+| water gloves    | SHM       | water gloves    | SHM       |
+| racer goggles   | SHM       | racer goggles   | HRO       |
+| racer goggles   | HRO       | racer goggles   | HRO       |
+| racer goggles   | SHM       | racer goggles   | SHM       |
+| racer goggles   | HRO       | racer goggles   | SHM       |
+| swim cap        | SHM       | swim cap        | ANZ       |
+| swim cap        | ANZ       | swim cap        | ANZ       |
+| swim cap        | SHM       | swim cap        | SHM       |
+| swim cap        | ANZ       | swim cap        | SHM       |
++-----------------+-----------+-----------------+-----------+
+180 rows in set (0.00 sec)
+
+mysql> SELECT s.description, s.manu_code, c.manu_code
+    -> FROM CHUDNOVETS_STOCK s, CHUDNOVETS_STOCK c
+    -> WHERE s.stock_num=c.stock_num;
++-----------------+-----------+-----------+
+| description     | manu_code | manu_code |
++-----------------+-----------+-----------+
+| baseball gloves | SMT       | HRO       |
+| baseball gloves | HSK       | HRO       |
+| baseball gloves | HRO       | HRO       |
+| baseball gloves | SMT       | HSK       |
+| baseball gloves | HSK       | HSK       |
+| baseball gloves | HRO       | HSK       |
+| baseball gloves | SMT       | SMT       |
+| baseball gloves | HSK       | SMT       |
+| baseball gloves | HRO       | SMT       |
+| baseball        | HRO       | HRO       |
+| baseball bat    | SHM       | HSK       |
+| baseball bat    | HSK       | HSK       |
+| baseball bat    | SHM       | SHM       |
+| baseball bat    | HSK       | SHM       |
+| football        | HSK       | HRO       |
+| football        | HRO       | HRO       |
+| football        | HSK       | HSK       |
+| football        | HRO       | HSK       |
+| tennis racquet  | SMT       | ANZ       |
+| tennis racquet  | NRG       | ANZ       |
+| tennis racquet  | ANZ       | ANZ       |
+| tennis racquet  | SMT       | NRG       |
+| tennis racquet  | NRG       | NRG       |
+| tennis racquet  | ANZ       | NRG       |
+| tennis racquet  | SMT       | SMT       |
+| tennis racquet  | NRG       | SMT       |
+| tennis racquet  | ANZ       | SMT       |
+| tennis ball     | SMT       | ANZ       |
+| tennis ball     | ANZ       | ANZ       |
+| tennis ball     | SMT       | SMT       |
+| tennis ball     | ANZ       | SMT       |
+| basketball      | HRO       | HRO       |
+| volleyball      | ANZ       | ANZ       |
+| volleyball net  | ANZ       | ANZ       |
+| bicycle tires   | SHM       | PRC       |
+| bicycle tires   | PRC       | PRC       |
+| bicycle tires   | SHM       | SHM       |
+| bicycle tires   | PRC       | SHM       |
+| bicycle brakes  | SHM       | PRC       |
+| bicycle brakes  | PRC       | PRC       |
+| bicycle brakes  | SHM       | SHM       |
+| bicycle brakes  | PRC       | SHM       |
+| frnt derailleur | PRC       | PRC       |
+| rear derailleur | PRC       | PRC       |
+| bicycle wheels  | SHM       | PRC       |
+| bicycle wheels  | PRC       | PRC       |
+| bicycle wheels  | SHM       | SHM       |
+| bicycle wheels  | PRC       | SHM       |
+| bicycle stem    | PRC       | PRC       |
+| bicycle saddle  | PRC       | PRC       |
+| crankset        | SHM       | SHM       |
+| pedal binding   | SHM       | PRC       |
+| pedal binding   | PRC       | PRC       |
+| pedal binding   | SHM       | SHM       |
+| pedal binding   | PRC       | SHM       |
+| helmet          | SHM       | ANZ       |
+| helmet          | PRC       | ANZ       |
+| helmet          | HSK       | ANZ       |
+| helmet          | HRO       | ANZ       |
+| helmet          | ANZ       | ANZ       |
+| helmet          | SHM       | HRO       |
+| helmet          | PRC       | HRO       |
+| helmet          | HSK       | HRO       |
+| helmet          | HRO       | HRO       |
+| helmet          | ANZ       | HRO       |
+| helmet          | SHM       | HSK       |
+| helmet          | PRC       | HSK       |
+| helmet          | HSK       | HSK       |
+| helmet          | HRO       | HSK       |
+| helmet          | ANZ       | HSK       |
+| helmet          | SHM       | PRC       |
+| helmet          | PRC       | PRC       |
+| helmet          | HSK       | PRC       |
+| helmet          | HRO       | PRC       |
+| helmet          | ANZ       | PRC       |
+| helmet          | SHM       | SHM       |
+| helmet          | PRC       | SHM       |
+| helmet          | HSK       | SHM       |
+| helmet          | HRO       | SHM       |
+| helmet          | ANZ       | SHM       |
+| 10-spd, assmbld | SHM       | SHM       |
+| 12-spd, assmbld | SHM       | SHM       |
+| 18-spd, assmbld | SHM       | SHM       |
+| bicycle gloves  | PRC       | PRC       |
+| golf shoes      | NKL       | ANZ       |
+| golf shoes      | KAR       | ANZ       |
+| golf shoes      | ANZ       | ANZ       |
+| golf shoes      | NKL       | KAR       |
+| golf shoes      | KAR       | KAR       |
+| golf shoes      | ANZ       | KAR       |
+| golf shoes      | NKL       | NKL       |
+| golf shoes      | KAR       | NKL       |
+| golf shoes      | ANZ       | NKL       |
+| metal woods     | NKL       | KAR       |
+| std woods       | KAR       | KAR       |
+| metal woods     | NKL       | NKL       |
+| std woods       | KAR       | NKL       |
+| irons/wedge     | NKL       | NKL       |
+| putter          | KAR       | KAR       |
+| 3 golf balls    | NKL       | ANZ       |
+| 3 golf balls    | HRO       | ANZ       |
+| 3 golf balls    | ANZ       | ANZ       |
+| 3 golf balls    | NKL       | HRO       |
+| 3 golf balls    | HRO       | HRO       |
+| 3 golf balls    | ANZ       | HRO       |
+| 3 golf balls    | NKL       | NKL       |
+| 3 golf balls    | HRO       | NKL       |
+| 3 golf balls    | ANZ       | NKL       |
+| running shoes   | SHM       | ANZ       |
+| running shoes   | PRC       | ANZ       |
+| running shoes   | NKL       | ANZ       |
+| running shoes   | KAR       | ANZ       |
+| running shoes   | HRO       | ANZ       |
+| running shoes   | ANZ       | ANZ       |
+| running shoes   | SHM       | HRO       |
+| running shoes   | PRC       | HRO       |
+| running shoes   | NKL       | HRO       |
+| running shoes   | KAR       | HRO       |
+| running shoes   | HRO       | HRO       |
+| running shoes   | ANZ       | HRO       |
+| running shoes   | SHM       | KAR       |
+| running shoes   | PRC       | KAR       |
+| running shoes   | NKL       | KAR       |
+| running shoes   | KAR       | KAR       |
+| running shoes   | HRO       | KAR       |
+| running shoes   | ANZ       | KAR       |
+| running shoes   | SHM       | NKL       |
+| running shoes   | PRC       | NKL       |
+| running shoes   | NKL       | NKL       |
+| running shoes   | KAR       | NKL       |
+| running shoes   | HRO       | NKL       |
+| running shoes   | ANZ       | NKL       |
+| running shoes   | SHM       | PRC       |
+| running shoes   | PRC       | PRC       |
+| running shoes   | NKL       | PRC       |
+| running shoes   | KAR       | PRC       |
+| running shoes   | HRO       | PRC       |
+| running shoes   | ANZ       | PRC       |
+| running shoes   | SHM       | SHM       |
+| running shoes   | PRC       | SHM       |
+| running shoes   | NKL       | SHM       |
+| running shoes   | KAR       | SHM       |
+| running shoes   | HRO       | SHM       |
+| running shoes   | ANZ       | SHM       |
+| ice pack        | KAR       | HRO       |
+| ice pack        | HRO       | HRO       |
+| ice pack        | KAR       | KAR       |
+| ice pack        | HRO       | KAR       |
+| socks           | PRC       | KAR       |
+| socks           | KAR       | KAR       |
+| socks           | PRC       | PRC       |
+| socks           | KAR       | PRC       |
+| watch           | HRO       | ANZ       |
+| watch           | ANZ       | ANZ       |
+| watch           | HRO       | HRO       |
+| watch           | ANZ       | HRO       |
+| first-aid kit   | HRO       | HRO       |
+| tandem adapter  | SHM       | PRC       |
+| tandem adapter  | PRC       | PRC       |
+| tandem adapter  | SHM       | SHM       |
+| tandem adapter  | PRC       | SHM       |
+| infant jogger   | PRC       | PRC       |
+| twin jogger     | PRC       | PRC       |
+| ear drops       | SHM       | HRO       |
+| ear drops       | HRO       | HRO       |
+| ear drops       | SHM       | SHM       |
+| ear drops       | HRO       | SHM       |
+| kick board      | SHM       | ANZ       |
+| kick board      | ANZ       | ANZ       |
+| kick board      | SHM       | SHM       |
+| kick board      | ANZ       | SHM       |
+| water gloves    | SHM       | SHM       |
+| racer goggles   | SHM       | HRO       |
+| racer goggles   | HRO       | HRO       |
+| racer goggles   | SHM       | SHM       |
+| racer goggles   | HRO       | SHM       |
+| swim cap        | SHM       | ANZ       |
+| swim cap        | ANZ       | ANZ       |
+| swim cap        | SHM       | SHM       |
+| swim cap        | ANZ       | SHM       |
++-----------------+-----------+-----------+
+180 rows in set (0.00 sec)
+
+mysql> 
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<system_patch_bundle_xml patch_id="29547676" patch_abstract="sample EsysPatch description" bundle_type="ENGSYSTEM" type_version="2.0" unique_patch_id="22877154">
+    <system urm_id="9999" type="oracle_exadata_dbsys">
+        <product aru_id="9480" qpart_id="5">Oracle Database</product>
+        <release aru_id="600000000101150" urm_id="18073">Oracle Database 19.0.0.0.0</release>
+    </system>
+    <subpatches>
+        <subpatch unique_patch_id="22863257" patch_id="29585399" platform="226" location="29585399" patching_tool="OPATCH" patch_type="SINGLETON">
+            <target_types>
+                <target_type type="cluster" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="21227">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="rac_database" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18083">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="oracle_database" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18073">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="has" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18086">Oracle 19.0.0.0.0</release>
+                </target_type>
+            </target_types>
+        </subpatch>
+        <subpatch unique_patch_id="22840392" patch_id="29517247" platform="226" location="29517247" patching_tool="OPATCH" patch_type="SINGLETON">
+            <target_types>
+                <target_type type="cluster" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="21227">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="has" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18086">Oracle 19.0.0.0.0</release>
+                </target_type>
+            </target_types>
+        </subpatch>
+        <subpatch unique_patch_id="22759421" patch_id="29401763" platform="2000" location="29401763" patching_tool="OPATCH" patch_type="SINGLETON">
+            <target_types>
+                <target_type type="cluster" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="21227">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="has" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18086">Oracle 19.0.0.0.0</release>
+                </target_type>
+            </target_types>
+        </subpatch>
+        <subpatch unique_patch_id="22862728" patch_id="29517242" platform="226" location="29517242" patching_tool="OPATCH" patch_type="SINGLETON">
+            <target_types>
+                <target_type type="cluster" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="21227">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="rac_database" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18083">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="oracle_database" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18073">Oracle 19.0.0.0.0</release>
+                </target_type>
+                <target_type type="has" version="19.0.0.0.0">
+                    <product aru_id="9480" qpart_id="5">Oracle Database</product>
+                    <release aru_id="600000000101150" urm_id="18086">Oracle 19.0.0.0.0</release>
+                </target_type>
+            </target_types>
+        </subpatch>
+    </subpatches>
+    <automation>
+        <hash>dd55bb3aef5c9dbe72052b3109725ebac5db922c</hash>
+        <oplan_version>11.2.0.2.5</oplan_version>
+    </automation>
+    <fvalue>
+        <min_opatch_version>11.1.0.10.1</min_opatch_version>
+        <value>6ce5263146e62d23d4e71e6ef927c4fe144b2f0f</value>
+        <function>3</function>
+    </fvalue>
+</system_patch_bundle_xml>

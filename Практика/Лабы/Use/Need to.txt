@@ -1,0 +1,3 @@
+EXISTS условие MySQL - https://oracleplsql.ru/exists-mysql.html
+PostgreSQL оператор UNION - https://oracleplsql.ru/union-postgresql.html
+

@@ -1,0 +1,39 @@
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '66#r#0cZqe';
+---
+mysqldb interfaceError - https://stackoverflow.com/questions/5704590/mysqldb-interfaceerror
+---
+sudo mysql -u root -p
+66#r#0cZqe
+---
+error code 1292 incorrect date value mysql - некорректный формат даты - https://stackoverflow.com/questions/14625191/error-code-1292-incorrect-date-value-mysql
+	(1292, "Incorrect date value: '' for column 'PAID_DATE' at row 1") - нужно вставлять запись без этого val'а
+date to string - https://stackoverflow.com/questions/2803852/python-date-string-to-date-object
+	date - https://docs.python.org/3/library/datetime.html
+	Модуль datetime - https://pythonworld.ru/moduli/modul-datetime.html
+decimal в MySQL - How to insert DECIMAL into MySQL database - https://stackoverflow.com/questions/6999582/how-to-insert-decimal-into-mysql-database
+	Error 1366 - Incorrect decimal value: '' for column '' at row -1
+replace(old, new[, num]) - Python: поиск подстроки, операции со строками. Как выполнять поиск в строке Python? - https://otus.ru/nest/post/622/
+Метод list.copy() в Python, копия списка. - https://docs-python.ru/tutorial/operatsii-izmenjaemymi-posledovatelnostjami-list-python/metod-list-copy/
+Метод list.pop() - https://docs-python.ru/tutorial/operatsii-izmenjaemymi-posledovatelnostjami-list-python/metod-list-pop/
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY o.customer_num' at line 5 - GROUP BY перед HAVING
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'stores.c.FNAME' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - когда в SELECT полях есть поля, которые не объединены в GROUP BY
+---
+LIKE не устойчив к регистру по умолчанию - https://oracleplsql.ru/like-mysql.html
+---
+ALTER TABLE Переименование столбца в таблице - https://oracleplsql.ru/alter-table-mysql.html
+Создать индекс - https://oracleplsql.ru/indexes-mysql.html
+Посмотреть индексы SHOW INDEX FROM table_test; - https://www.dmosk.ru/miniinstruktions.php?mini=mysql-index
+EXTRACT ФУНКЦИЯ - https://oracleplsql.ru/extract-function.html
+MySQL функция WEEKDAY - https://oracleplsql.ru/mysql-function-weekday.html
+	MySQL WEEKDAY() Function - https://www.w3schools.com/sql/func_mysql_weekday.asp
+Календарь на 1994 год - https://my-calend.ru/calendar/1994
+SQL оператор GROUP BY - https://oracleplsql.ru/group-by-sql.html
+SUM - https://oracleplsql.ru/sum-function.html
+HAVING - https://oracleplsql.ru/having-mysql.html
+Лекция 3, слайд 23 - синоним для таблицы
+GROUP BY и JOIN в MySQL - https://mithrandir.ru/professional/databases/mysql-join-after-group-by.html
+MYSQL ERROR 1248 (42000): Every derived table must have its own alias - https://stackoverflow.com/questions/3363918/mysql-error-1248-42000-every-derived-table-must-have-its-own-alias
+Производная таблица (derived table) - https://professorweb.ru/my/sql-server/2012/level2/2_14.php
+UNION - https://oracleplsql.ru/union-mysql.html
+В UNION ORDER BY в конце запроса.
+

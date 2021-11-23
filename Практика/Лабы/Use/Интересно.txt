@@ -1,0 +1,21 @@
+LIKE чувствителен к регистру - https://www.sql.ru/forum/741193/like-chuvstvitelnost-k-registru
+---
+MAX, MIN, AVG - https://oracleplsql.ru/numeric-mathematical-functions-mysql.html
+ALTER TABLE оператор MySQL - https://oracleplsql.ru/alter-table-mysql.html
+Индексы MySQL - https://oracleplsql.ru/indexes-mysql.html
+Joins оператор MySQL - https://oracleplsql.ru/joins-mysql.html
+---
+Лаба 1:
+
+3. Создать синонимы для таблиц orders, stock и manufact. 
+6. Переименовать таблицу stock в stock_new. 
+---
+Лаба 2:
+
+8. Временная таблица - Выберите значения всех столбцов в таблице customer,  для которых выполняется условие:  -  значение штата равно  СА  во временную таблицу, отсортировывая по возрастанию столбца «название компании». Выберите все строки во временной таблице.
+---
+Как сравнить результаты 2-х запросов?
+Разница между MySQL и ORACLE - https://dev-gang.ru/article/raznica-mezhdu-mysql-i-oracle-8f4pn0sqqt/
+Производная таблица (derived table) - https://professorweb.ru/my/sql-server/2012/level2/2_14.php
+6. ОБОБЩЕНИЕ ДАННЫХ С ПОМОЩЬЮ АГРЕГАТНЫХ ФУНКЦИЙ - https://www.sql.ru/docs/sql/u_sql/ch6.shtml
+
